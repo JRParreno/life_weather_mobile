@@ -2,7 +2,6 @@ class Signup {
   final String firstName;
   final String lastName;
   final String email;
-  final String mobileNumber;
   final String completeAddress;
   final String password;
   final String confirmPassword;
@@ -12,7 +11,6 @@ class Signup {
     required this.firstName,
     required this.lastName,
     required this.email,
-    required this.mobileNumber,
     required this.completeAddress,
     required this.password,
     required this.confirmPassword,
@@ -23,7 +21,6 @@ class Signup {
     String? firstName,
     String? lastName,
     String? email,
-    String? mobileNumber,
     String? completeAddress,
     String? password,
     String? confirmPassword,
@@ -33,7 +30,6 @@ class Signup {
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       email: email ?? this.email,
-      mobileNumber: mobileNumber ?? this.mobileNumber,
       completeAddress: completeAddress ?? this.completeAddress,
       password: password ?? this.password,
       confirmPassword: confirmPassword ?? this.confirmPassword,
@@ -48,7 +44,6 @@ class Signup {
     return other.firstName == firstName &&
         other.lastName == lastName &&
         other.email == email &&
-        other.mobileNumber == mobileNumber &&
         other.completeAddress == completeAddress &&
         other.password == password &&
         other.gender == gender &&
@@ -60,7 +55,6 @@ class Signup {
     return firstName.hashCode ^
         lastName.hashCode ^
         email.hashCode ^
-        mobileNumber.hashCode ^
         completeAddress.hashCode ^
         password.hashCode ^
         gender.hashCode ^

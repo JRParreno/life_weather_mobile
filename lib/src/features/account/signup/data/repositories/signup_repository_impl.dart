@@ -16,7 +16,6 @@ class SignupImpl extends SignupRepository {
       "last_name": signup.lastName,
       "password": signup.password,
       "confirm_password": signup.confirmPassword,
-      "contact_number": signup.mobileNumber,
       "address": signup.completeAddress,
       "gender": signup.gender,
     };

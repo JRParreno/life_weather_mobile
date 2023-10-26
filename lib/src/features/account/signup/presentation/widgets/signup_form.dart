@@ -8,7 +8,6 @@ class SignupForm extends StatelessWidget {
     required this.emailCtrl,
     required this.passwordCtrl,
     required this.confirmPasswordCtrl,
-    required this.mobileNoCtrl,
     required this.completeAddressCtrl,
     required this.firstNameCtrl,
     required this.lastNameCtrl,
@@ -25,7 +24,6 @@ class SignupForm extends StatelessWidget {
   final TextEditingController emailCtrl;
   final TextEditingController passwordCtrl;
   final TextEditingController confirmPasswordCtrl;
-  final TextEditingController mobileNoCtrl;
   final TextEditingController completeAddressCtrl;
   final TextEditingController lastNameCtrl;
   final TextEditingController firstNameCtrl;
@@ -131,26 +129,8 @@ class SignupForm extends StatelessWidget {
                 color: Colors.transparent,
               ),
               CustomTextField(
-                textController: mobileNoCtrl,
-                labelText: "Mobile number",
-                keyboardType: TextInputType.emailAddress,
-                padding: EdgeInsets.zero,
-                parametersValidate: 'required',
-                validators: (value) {
-                  if (value != null &&
-                      RegExp(r'^(09|\+639)\d{9}$').hasMatch(value)) {
-                    return null;
-                  }
-                  return 'Invalid mobile number';
-                },
-              ),
-              const Divider(
-                height: 10,
-                color: Colors.transparent,
-              ),
-              CustomTextField(
                 textController: completeAddressCtrl,
-                labelText: "Complete Address",
+                labelText: "Address",
                 keyboardType: TextInputType.emailAddress,
                 padding: EdgeInsets.zero,
                 parametersValidate: 'required',
@@ -200,7 +180,7 @@ class SignupForm extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               CustomBtn(
-                label: "Signup",
+                label: "Create an account",
                 onTap: onSubmit,
                 width: 275,
               ),

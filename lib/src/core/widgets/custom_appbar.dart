@@ -23,7 +23,7 @@ PreferredSizeWidget buildAppBar({
         ? leading ??
             IconButton(
               icon: const Icon(
-                Icons.arrow_circle_left,
+                Icons.chevron_left,
                 size: 40,
                 color: Colors.white,
               ),
