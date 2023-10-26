@@ -11,7 +11,6 @@ import 'package:life_weather_mobile/src/features/account/login/presentation/scre
 import 'package:life_weather_mobile/src/features/account/profile/data/models/profile_model.dart';
 import 'package:life_weather_mobile/src/features/account/profile/data/repositories/profile_repository_impl.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_navigation.dart';
-import 'package:life_weather_mobile/src/features/home/presentation/screens/home_screen.dart';
 
 class LifeWeather extends StatefulWidget {
   const LifeWeather({super.key});
