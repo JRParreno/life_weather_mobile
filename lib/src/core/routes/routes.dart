@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:life_weather_mobile/src/features/account/forgot_password/presentation/screen/forgot_password_screen.dart';
 import 'package:life_weather_mobile/src/features/account/login/presentation/screen/login_screen.dart';
 import 'package:life_weather_mobile/src/features/account/signup/presentation/screens/sign_up_screen.dart';
+import 'package:life_weather_mobile/src/features/home/presentation/screens/home_screen.dart';
 
 Route<dynamic>? generateRoute(RouteSettings settings) {
   return MaterialPageRoute(
@@ -14,6 +15,8 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
           return const SignUpScreen();
         case ForgotPasswordScreen.routeName:
           return const ForgotPasswordScreen();
+        case HomeScreen.routeName:
+          return const HomeScreen();
       }
 
       return const Scaffold(

@@ -39,7 +39,6 @@ class _UpdateAccountScreenState extends State<UpdateAccountScreen> {
     final profile = ProfileUtils.userProfile(context);
     if (profile != null) {
       emailCtrl.text = profile.email;
-      mobileNoCtrl.text = profile.contactNumber;
       completeAddressCtrl.text = profile.address;
       lastNameCtrl.text = profile.lastName;
       firstNameCtrl.text = profile.firstName;

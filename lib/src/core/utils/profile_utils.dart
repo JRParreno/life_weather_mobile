@@ -5,11 +5,11 @@ import 'package:life_weather_mobile/src/core/config/app_constant.dart';
 import 'package:life_weather_mobile/src/core/local_storage/local_storage.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
 import 'package:life_weather_mobile/src/features/account/login/presentation/screen/login_screen.dart';
-import 'package:life_weather_mobile/src/features/account/profile/data/models/profile.dart';
+import 'package:life_weather_mobile/src/features/account/profile/data/models/profile_model.dart';
 import 'package:ndialog/ndialog.dart';
 
 class ProfileUtils {
-  static Profile? userProfile(BuildContext ctx) {
+  static ProfileModel? userProfile(BuildContext ctx) {
     final profileState = BlocProvider.of<ProfileBloc>(ctx).state;
     if (profileState is ProfileLoaded) {
       return profileState.profile;

@@ -1,8 +1,8 @@
-import 'package:life_weather_mobile/src/features/account/profile/data/models/profile.dart';
+import 'package:life_weather_mobile/src/features/account/profile/data/models/profile_model.dart';
 
 abstract class ProfileRepository {
-  Future<Profile> fetchProfile();
-  Future<Profile> updateProfile({
+  Future<ProfileModel> fetchProfile();
+  Future<ProfileModel> updateProfile({
     required String firstName,
     required String lastName,
     required String email,

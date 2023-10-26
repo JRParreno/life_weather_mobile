@@ -9,7 +9,7 @@ import 'package:life_weather_mobile/src/core/local_storage/local_storage.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
 import 'package:life_weather_mobile/src/features/account/login/data/repositories/login_repository_impl.dart';
 import 'package:life_weather_mobile/src/features/account/login/presentation/widgets/login_form.dart';
-import 'package:life_weather_mobile/src/features/account/profile/data/models/profile.dart';
+import 'package:life_weather_mobile/src/features/account/profile/data/models/profile_model.dart';
 import 'package:life_weather_mobile/src/features/account/profile/data/repositories/profile_repository_impl.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -134,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void handleSetProfileBloc(Profile profile) {
+  void handleSetProfileBloc(ProfileModel profile) {
     BlocProvider.of<ProfileBloc>(context).add(
       SetProfileEvent(profile: profile),
     );

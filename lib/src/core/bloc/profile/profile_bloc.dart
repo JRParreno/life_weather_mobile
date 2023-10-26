@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:life_weather_mobile/src/core/bloc/common/common_event.dart';
 import 'package:life_weather_mobile/src/core/bloc/common/common_state.dart';
-import 'package:life_weather_mobile/src/features/account/profile/data/models/profile.dart';
+import 'package:life_weather_mobile/src/features/account/profile/data/models/profile_model.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';

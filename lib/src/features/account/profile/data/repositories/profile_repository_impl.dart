@@ -3,17 +3,17 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:life_weather_mobile/src/core/config/app_constant.dart';
 import 'package:life_weather_mobile/src/core/interceptor/api_interceptor.dart';
-import 'package:life_weather_mobile/src/features/account/profile/data/models/profile.dart';
+import 'package:life_weather_mobile/src/features/account/profile/data/models/profile_model.dart';
 import 'package:life_weather_mobile/src/features/account/profile/data/repositories/profile_repository.dart';
 
 class ProfileRepositoryImpl extends ProfileRepository {
   static Dio dio = Dio();
 
   @override
-  Future<Profile> fetchProfile() async {
+  Future<ProfileModel> fetchProfile() async {
     const String url = '${AppConstant.apiUrl}/profile';
     return await ApiInterceptor.apiInstance().get(url).then((value) {
-      final response = Profile.fromMap(value.data);
+      final response = ProfileModel.fromJson(value.data);
       return response;
     }).catchError((error) {
       throw error;
@@ -23,7 +23,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<Profile> updateProfile({
+  Future<ProfileModel> updateProfile({
     required String firstName,
     required String lastName,
     required String email,
@@ -47,7 +47,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
     return await ApiInterceptor.apiInstance()
         .patch(url, data: data)
         .then((value) {
-      final response = Profile.fromMap(value.data);
+      final response = ProfileModel.fromJson(value.data);
       return response;
     }).catchError((error) {
       throw error;

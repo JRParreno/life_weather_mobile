@@ -8,7 +8,7 @@ abstract class ProfileEvent extends Equatable {
 }
 
 class SetProfileEvent extends ProfileEvent {
-  final Profile profile;
+  final ProfileModel profile;
 
   const SetProfileEvent({
     required this.profile,

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:life_weather_mobile/src/core/bloc/profile/profile_bloc.dart';
 import 'package:life_weather_mobile/src/core/utils/profile_utils.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
-import 'package:life_weather_mobile/src/features/account/profile/data/models/profile.dart';
+import 'package:life_weather_mobile/src/features/account/profile/data/models/profile_model.dart';
 import 'package:life_weather_mobile/src/features/account/profile/presentation/screens/change_password_screen.dart';
 import 'package:life_weather_mobile/src/features/account/profile/presentation/screens/update_account_screen.dart';
 import 'package:life_weather_mobile/src/features/account/profile/presentation/screens/update_profile_picture_screen.dart';
@@ -22,7 +22,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController reviewCtrl = TextEditingController();
   final TextEditingController reportCtrl = TextEditingController();
 
-  Profile? profile;
+  ProfileModel? profile;
 
   @override
   void initState() {
@@ -174,15 +174,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         CustomText(
                           text: profile?.email ?? '',
-                          style: const TextStyle(
-                            fontSize: 15,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        CustomText(
-                          text: profile?.contactNumber ?? '',
                           style: const TextStyle(
                             fontSize: 15,
                           ),

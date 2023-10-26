@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:life_weather_mobile/src/core/bloc/profile/profile_bloc.dart';
 import 'package:life_weather_mobile/src/core/config/app_constant.dart';
 import 'package:life_weather_mobile/src/core/local_storage/local_storage.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
 import 'package:life_weather_mobile/src/features/account/login/data/repositories/login_repository_impl.dart';
-import 'package:life_weather_mobile/src/features/account/profile/data/models/profile.dart';
 import 'package:life_weather_mobile/src/features/account/profile/data/repositories/profile_repository_impl.dart';
-import 'package:life_weather_mobile/src/features/account/signup/data/models/signup.dart';
-import 'package:life_weather_mobile/src/features/account/signup/data/repositories/signup_repository_impl.dart';
+import 'package:life_weather_mobile/src/features/account/signup/data/models/signup_model.dart';
+import 'package:life_weather_mobile/src/features/account/signup/data/data_sources/signup_repository_impl.dart';
 import 'package:life_weather_mobile/src/features/account/signup/presentation/widgets/signup_form.dart';
+import 'package:life_weather_mobile/src/features/home/presentation/screens/home_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String routeName = '/signup';
@@ -36,7 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void initState() {
-    // handleTestValues();/
+    handleTestValues();
     super.initState();
   }
 
@@ -107,7 +105,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     if (signupFormKey.currentState!.validate()) {
       EasyLoading.show();
 
-      final signup = Signup(
+      final signup = SignupModel(
         email: emailSignupCtrl.text,
         completeAddress: completeAddressCtrl.text,
         password: passwordSignupCtrl.text,
@@ -169,14 +167,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void handleGetProfile() async {
     await ProfileRepositoryImpl().fetchProfile().then((profile) async {
-      handleSetProfileBloc(profile);
       EasyLoading.dismiss();
 
-      // Future.delayed(const Duration(milliseconds: 500), () {
-      //   Navigator.of(context).pushNamed(
-      //     SearchServicesScreen.routeName,
-      //   );
-      // });
+      Future.delayed(const Duration(milliseconds: 500), () {
+        Navigator.of(context).pushNamed(
+          HomeScreen.routeName,
+        );
+      });
     }).catchError((onError) {
       Future.delayed(const Duration(milliseconds: 500), () {
         CommonDialog.showMyDialog(
@@ -187,11 +184,5 @@ class _SignUpScreenState extends State<SignUpScreen> {
         );
       });
     });
-  }
-
-  void handleSetProfileBloc(Profile profile) {
-    BlocProvider.of<ProfileBloc>(context).add(
-      SetProfileEvent(profile: profile.copyWith(isNewRegister: true)),
-    );
   }
 }

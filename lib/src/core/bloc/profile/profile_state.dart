@@ -10,35 +10,27 @@ abstract class ProfileState extends Equatable {
 }
 
 class ProfileLoaded extends ProfileState {
-  final Profile? profile;
+  final ProfileModel? profile;
 
   const ProfileLoaded({
     this.profile,
   });
 
   ProfileLoaded copyWith({
-    Profile? profile,
+    ProfileModel? profile,
   }) {
     return ProfileLoaded(
       profile: profile ?? this.profile,
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'profile': profile?.toMap(),
-    };
-  }
-
   factory ProfileLoaded.fromMap(Map<String, dynamic> map) {
     return ProfileLoaded(
       profile: map['profile'] != null
-          ? Profile.fromMap(map['profile'] as Map<String, dynamic>)
+          ? ProfileModel.fromJson(map['profile'] as Map<String, dynamic>)
           : null,
     );
   }
-
-  String toJson() => json.encode(toMap());
 
   factory ProfileLoaded.fromJson(String source) =>
       ProfileLoaded.fromMap(json.decode(source) as Map<String, dynamic>);

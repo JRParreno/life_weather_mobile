@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:life_weather_mobile/src/core/config/app_constant.dart';
-import 'package:life_weather_mobile/src/features/account/signup/data/models/signup.dart';
-import 'package:life_weather_mobile/src/features/account/signup/data/repositories/signup_repository.dart';
+import 'package:life_weather_mobile/src/features/account/signup/data/models/signup_model.dart';
+import 'package:life_weather_mobile/src/features/account/signup/domain/repositories/signup_repository.dart';
 
 class SignupImpl extends SignupRepository {
   final Dio dio = Dio();
 
   @override
-  Future<Map<String, dynamic>> register(Signup signup) async {
+  Future<Map<String, dynamic>> register(SignupModel signup) async {
     String url = '${AppConstant.apiUrl}/register';
 
     final data = {
