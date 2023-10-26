@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:life_weather_mobile/src/core/bloc/profile/profile_bloc.dart';
 import 'package:life_weather_mobile/src/core/config/app_constant.dart';
 import 'package:life_weather_mobile/src/core/local_storage/local_storage.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
 import 'package:life_weather_mobile/src/features/account/login/data/repositories/login_repository_impl.dart';
+import 'package:life_weather_mobile/src/features/account/profile/data/models/profile_model.dart';
 import 'package:life_weather_mobile/src/features/account/profile/data/repositories/profile_repository_impl.dart';
 import 'package:life_weather_mobile/src/features/account/signup/data/models/signup_model.dart';
 import 'package:life_weather_mobile/src/features/account/signup/data/data_sources/signup_repository_impl.dart';
 import 'package:life_weather_mobile/src/features/account/signup/presentation/widgets/signup_form.dart';
-import 'package:life_weather_mobile/src/features/home/presentation/screens/home_screen.dart';
+import 'package:life_weather_mobile/src/features/home/presentation/screens/home_navigation.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const String routeName = '/signup';
@@ -169,9 +172,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
     await ProfileRepositoryImpl().fetchProfile().then((profile) async {
       EasyLoading.dismiss();
 
+      handleSetProfileBloc(profile);
+      await LocalStorage.storeLocalStorage('_user', profile.toString());
+
       Future.delayed(const Duration(milliseconds: 500), () {
-        Navigator.of(context).pushNamed(
-          HomeScreen.routeName,
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          HomeNavigation.routeName,
+          (route) => false,
         );
       });
     }).catchError((onError) {
@@ -184,5 +191,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
         );
       });
     });
+  }
+
+  void handleSetProfileBloc(ProfileModel profile) {
+    BlocProvider.of<ProfileBloc>(context).add(
+      SetProfileEvent(profile: profile),
+    );
   }
 }

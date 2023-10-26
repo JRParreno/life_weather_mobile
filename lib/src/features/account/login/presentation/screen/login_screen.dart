@@ -11,6 +11,7 @@ import 'package:life_weather_mobile/src/features/account/login/data/repositories
 import 'package:life_weather_mobile/src/features/account/login/presentation/widgets/login_form.dart';
 import 'package:life_weather_mobile/src/features/account/profile/data/models/profile_model.dart';
 import 'package:life_weather_mobile/src/features/account/profile/data/repositories/profile_repository_impl.dart';
+import 'package:life_weather_mobile/src/features/home/presentation/screens/home_navigation.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String routeName = '/login';
@@ -113,14 +114,14 @@ class _LoginScreenState extends State<LoginScreen> {
       EasyLoading.dismiss();
 
       handleSetProfileBloc(profile);
-      await LocalStorage.storeLocalStorage('_user', profile.toJson());
+      await LocalStorage.storeLocalStorage('_user', profile.toString());
 
-      // Future.delayed(const Duration(milliseconds: 500), () {
-      //   Navigator.of(context).pushNamedAndRemoveUntil(
-      //     SearchServicesScreen.routeName,
-      //     (route) => false,
-      //   );
-      // });
+      Future.delayed(const Duration(milliseconds: 500), () {
+        Navigator.of(context).pushNamedAndRemoveUntil(
+          HomeNavigation.routeName,
+          (route) => false,
+        );
+      });
     }).catchError((onError) {
       EasyLoading.dismiss();
       Future.delayed(const Duration(milliseconds: 500), () {
