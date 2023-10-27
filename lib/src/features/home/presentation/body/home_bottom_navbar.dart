@@ -25,8 +25,9 @@ class HomeBottomNavBar extends StatelessWidget {
         unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.task),
-            label: 'Todo',
+            icon: Icon(Icons.home),
+            label: 'Home',
+            backgroundColor: Colors.blue, // <-- This works for shifting
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.cloud_circle_sharp),
@@ -35,7 +36,16 @@ class HomeBottomNavBar extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.pending_actions),
-            label: 'Diary',
+            label: 'Journal',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: 'Notifs',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+            backgroundColor: Colors.blue, // <-- This works for shifting
           ),
         ],
       ),

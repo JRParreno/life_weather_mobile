@@ -1,0 +1,22 @@
+{
+  "files.exclude": {
+    "**/*.gql.dart": false,
+    "**/*.gql.g.dart": false,
+    "**/*.freezed.dart": false,
+    "**/*.g.dart": false,
+    "**/*.ast.gql.dart": false,
+    "**/*.req.gql.dart": false,
+    "**/*.data.gql.dart": false,
+    "**/*.var.gql.dart": false,
+    "**/*.mocks.dart": true,
+  },
+  "dart.flutterSdkPath": ".fvm/flutter_sdk",
+  // Remove .fvm files from search
+  "search.exclude": {
+    "**/.fvm": true
+  },
+  // Remove from file watching
+  "files.watcherExclude": {
+    "**/.fvm": true
+  }
+}

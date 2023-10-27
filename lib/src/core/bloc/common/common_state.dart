@@ -1,7 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:life_weather_mobile/src/core/bloc/profile/profile_bloc.dart';
+import 'package:life_weather_mobile/src/features/journal/todo/presentation/bloc/bloc/todo_bloc.dart';
 
-abstract class CommonState extends Equatable implements ProfileState {
+abstract class CommonState extends Equatable
+    implements ProfileState, TodoState {
   const CommonState();
   @override
   List<Object> get props => [];

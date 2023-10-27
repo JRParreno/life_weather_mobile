@@ -11,6 +11,9 @@ import 'package:life_weather_mobile/src/features/account/login/presentation/scre
 import 'package:life_weather_mobile/src/features/account/profile/data/models/profile_model.dart';
 import 'package:life_weather_mobile/src/features/account/profile/data/repositories/profile_repository_impl.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_navigation.dart';
+import 'package:life_weather_mobile/src/features/journal/todo/presentation/bloc/bloc/todo_bloc.dart';
+
+import 'features/journal/todo/data/data_sources/todo_repository_impl.dart';
 
 class LifeWeather extends StatefulWidget {
   const LifeWeather({super.key});
@@ -63,6 +66,7 @@ class _LifeWeatherState extends State<LifeWeather> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (ctx) => ProfileBloc()),
+        BlocProvider(create: (ctx) => TodoBloc(TodoRepositoryImpl())),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),

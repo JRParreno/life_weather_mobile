@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/body/home_bottom_navbar.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_screen.dart';
+import 'package:life_weather_mobile/src/features/journal/presentation/journal_screen.dart';
 
 class HomeNavigation extends StatefulWidget {
   const HomeNavigation({super.key});
@@ -17,6 +18,8 @@ class _HomeNavigationState extends State<HomeNavigation> {
 
   static const List<Widget> _pages = <Widget>[
     HomeScreen(),
+    HomeScreen(),
+    JournalScreen(),
     HomeScreen(),
     HomeScreen(),
   ];
