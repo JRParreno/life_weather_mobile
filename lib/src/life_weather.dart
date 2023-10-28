@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:life_weather_mobile/src/core/bloc/common/common_event.dart';
 import 'package:life_weather_mobile/src/core/bloc/common/common_state.dart';
@@ -41,9 +42,9 @@ class _LifeWeatherState extends State<LifeWeather> {
       // ignore: use_build_context_synchronously
       setProfileBloc(profile: null, ctx: ctx);
     }
-    // Future.delayed(const Duration(seconds: 2), () {
-    //   FlutterNativeSplash.remove();
-    // });
+    Future.delayed(const Duration(seconds: 2), () {
+      FlutterNativeSplash.remove();
+    });
   }
 
   void setProfileBloc({
