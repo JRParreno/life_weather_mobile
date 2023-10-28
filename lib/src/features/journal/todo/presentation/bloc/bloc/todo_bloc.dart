@@ -71,14 +71,40 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> _updateTodoEvent(
       UpdateTodoEvent event, Emitter<TodoState> emit) async {
-    emit(const LoadingState());
-    try {
-      final todoRes = await _repository.todoList();
-      emit(TodoLoaded(
-        todoResponseModel: todoRes,
-      ));
-    } catch (e) {
-      emit(ErrorState(e.toString()));
+    final state = this.state;
+
+    if (state is TodoLoaded) {
+      emit(state.copyWith(viewStatus: ViewStatus.loading));
+
+      try {
+        final todoModelRes = await _repository.updatedTodo(
+          note: event.note,
+          title: event.title,
+          status: event.status,
+          pk: event.id,
+        );
+
+        emit(
+          state.copyWith(
+            viewStatus: ViewStatus.successful,
+          ),
+        );
+
+        final currentTodos = [...state.todoResponseModel.todos];
+        currentTodos.removeWhere(
+          (element) => element.pk.toString() == event.id,
+        );
+
+        emit(TodoLoaded(
+          todoResponseModel: state.todoResponseModel.copyWith(
+            todos: [todoModelRes, ...currentTodos],
+            count: state.todoResponseModel.count,
+          ),
+        ));
+      } catch (e) {
+        emit(ErrorState(e.toString()));
+        emit(state.copyWith(viewStatus: ViewStatus.loading));
+      }
     }
   }
 }

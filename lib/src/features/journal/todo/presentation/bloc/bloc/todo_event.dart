@@ -34,11 +34,13 @@ class UpdateTodoEvent extends TodoEvent {
   final String title;
   final String note;
   final String id;
+  final String status;
 
   const UpdateTodoEvent({
     required this.title,
     required this.note,
     required this.id,
+    required this.status,
   });
 
   @override
@@ -46,5 +48,6 @@ class UpdateTodoEvent extends TodoEvent {
         title,
         note,
         id,
+        status,
       ];
 }

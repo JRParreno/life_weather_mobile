@@ -79,7 +79,7 @@ class TodoRepositoryImpl extends TodoRepository {
     final String url = '${AppConstant.apiUrl}/todo/$pk';
 
     return await ApiInterceptor.apiInstance()
-        .post(url, data: data)
+        .patch(url, data: data)
         .then((value) {
       final response = value;
 

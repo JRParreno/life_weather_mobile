@@ -18,11 +18,13 @@ class JournalTodoBody extends StatelessWidget {
       bloc: bloc,
       builder: (context, state) {
         if (state is TodoLoaded) {
-          final isEmpty = state.todoResponseModel.todos.isEmpty;
+          final todos = state.todoResponseModel.todos;
+          final isEmpty = todos.isEmpty;
 
           return JournalBodyContainer(
             backgroundColor: const Color(0xFFB9DFE3),
             isEmpty: isEmpty,
+            isShowViewAll: todos.length > 3,
             headerTitle: 'Todos',
             content: isEmpty
                 ? Flexible(
@@ -33,7 +35,9 @@ class JournalTodoBody extends StatelessWidget {
                       child: Center(
                         child: CustomBtn(
                           label: 'Tap here to add Todo',
-                          onTap: () {},
+                          onTap: () {
+                            handleOntap(context);
+                          },
                           unsetWidth: true,
                           backgroundColor: const Color(0xFF632F57),
                         ),

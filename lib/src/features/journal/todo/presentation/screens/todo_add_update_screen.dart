@@ -55,9 +55,12 @@ class _TodoAddUpdateScreenState extends State<TodoAddUpdateScreen> {
             LoaderDialog.show(context: context);
           }
           if (state.viewStatus == ViewStatus.successful) {
-            formKey.currentState!.reset();
-            titleCtrl.text = '';
-            noteCtrl.text = '';
+            if (widget.args.todoModel == null) {
+              formKey.currentState!.reset();
+              titleCtrl.text = '';
+              noteCtrl.text = '';
+            }
+
             LoaderDialog.hide(context: context);
             handleSnackBar();
           }
@@ -172,7 +175,21 @@ class _TodoAddUpdateScreenState extends State<TodoAddUpdateScreen> {
   }
 
   void handleSubmitForm() {
+    final todoModel = widget.args.todoModel;
+
     if (formKey.currentState!.validate()) {
+      if (todoModel != null) {
+        todoBloc.add(
+          UpdateTodoEvent(
+            title: titleCtrl.value.text,
+            note: noteCtrl.value.text,
+            status: statusCtrl.value.text,
+            id: todoModel.pk.toString(),
+          ),
+        );
+        return;
+      }
+
       todoBloc.add(
         AddTodoEvent(
           title: titleCtrl.value.text,
