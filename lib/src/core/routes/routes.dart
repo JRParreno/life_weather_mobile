@@ -5,6 +5,8 @@ import 'package:life_weather_mobile/src/features/account/signup/presentation/scr
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_navigation.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/presentation/journal_screen.dart';
+import 'package:life_weather_mobile/src/features/journal/todo/presentation/screens/todo_add_update_screen.dart';
+import 'package:life_weather_mobile/src/features/journal/todo/presentation/screens/todo_screen.dart';
 
 Route<dynamic>? generateRoute(RouteSettings settings) {
   return MaterialPageRoute(
@@ -23,6 +25,13 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
           return const HomeNavigation();
         case JournalScreen.routeName:
           return const JournalScreen();
+        case TodoScreen.routeName:
+          return const TodoScreen();
+        case TodoAddUpdateScreen.routeName:
+          final args = settings.arguments! as TodoAddUpdateArgs;
+          return TodoAddUpdateScreen(
+            args: args,
+          );
       }
 
       return const Scaffold(

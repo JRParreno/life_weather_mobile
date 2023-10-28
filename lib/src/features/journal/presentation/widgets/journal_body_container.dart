@@ -26,7 +26,7 @@ class JournalBodyContainer extends StatelessWidget {
       constraints: isEmpty
           ? null
           : BoxConstraints(
-              maxHeight: height * 0.3,
+              maxHeight: height * 0.4,
               minHeight: height * 0.2,
             ),
       decoration: BoxDecoration(

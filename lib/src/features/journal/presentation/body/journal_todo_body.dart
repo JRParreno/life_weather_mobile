@@ -4,6 +4,7 @@ import 'package:life_weather_mobile/src/core/utils/spacing/v_space.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
 import 'package:life_weather_mobile/src/features/journal/presentation/widgets/journal_body_container.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/bloc/bloc/todo_bloc.dart';
+import 'package:life_weather_mobile/src/features/journal/todo/presentation/screens/todo_add_update_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/widgets/todo_card.dart';
 
 class JournalTodoBody extends StatelessWidget {
@@ -44,8 +45,8 @@ class JournalTodoBody extends StatelessWidget {
                     children: [
                       ListView.builder(
                         shrinkWrap: true,
-                        itemCount: state.todoResponseModel.count > 4
-                            ? 4
+                        itemCount: state.todoResponseModel.count > 3
+                            ? 3
                             : state.todoResponseModel.count,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
@@ -57,7 +58,9 @@ class JournalTodoBody extends StatelessWidget {
                       Vspace.xs,
                       CustomBtn(
                         label: 'Add Todo',
-                        onTap: () {},
+                        onTap: () {
+                          handleOntap(context);
+                        },
                         unsetWidth: true,
                       ),
                       Vspace.xs,
@@ -82,6 +85,13 @@ class JournalTodoBody extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  void handleOntap(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      TodoAddUpdateScreen.routeName,
+      arguments: const TodoAddUpdateArgs(null),
     );
   }
 }

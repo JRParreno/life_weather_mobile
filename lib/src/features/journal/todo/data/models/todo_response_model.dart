@@ -44,4 +44,16 @@ class TodoResponseModel {
 
   factory TodoResponseModel.fromJson(String source) =>
       TodoResponseModel.fromMap(json.decode(source));
+
+  TodoResponseModel copyWith({
+    List<TodoModel>? todos,
+    int? count,
+    bool? hasNextPage,
+  }) {
+    return TodoResponseModel(
+      todos: todos ?? this.todos,
+      count: count ?? this.count,
+      hasNextPage: hasNextPage ?? this.hasNextPage,
+    );
+  }
 }

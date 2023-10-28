@@ -7,7 +7,7 @@ abstract class TodoRepository {
   Future<TodoModel> addTodo({
     required String title,
     required String note,
-    required String userPk,
+    required String status,
   });
 
   Future<TodoModel> updatedTodo({

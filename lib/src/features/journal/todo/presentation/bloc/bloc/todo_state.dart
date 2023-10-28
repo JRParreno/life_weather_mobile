@@ -9,9 +9,26 @@ class TodoState extends Equatable {
 
 class TodoLoaded extends TodoState {
   final TodoResponseModel todoResponseModel;
+  final ViewStatus viewStatus;
 
-  const TodoLoaded(this.todoResponseModel);
+  const TodoLoaded({
+    required this.todoResponseModel,
+    this.viewStatus = ViewStatus.none,
+  });
 
   @override
-  List<Object?> get props => [todoResponseModel];
+  List<Object?> get props => [
+        todoResponseModel,
+        viewStatus,
+      ];
+
+  TodoLoaded copyWith({
+    TodoResponseModel? todoResponseModel,
+    ViewStatus? viewStatus,
+  }) {
+    return TodoLoaded(
+      todoResponseModel: todoResponseModel ?? this.todoResponseModel,
+      viewStatus: viewStatus ?? this.viewStatus,
+    );
+  }
 }

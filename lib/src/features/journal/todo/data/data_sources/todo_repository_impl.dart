@@ -7,28 +7,27 @@ import 'package:life_weather_mobile/src/features/journal/todo/domain/repositorie
 
 class TodoRepositoryImpl extends TodoRepository {
   final Dio dio = Dio();
-  static const String url = '${AppConstant.apiUrl}/todo/list';
 
   @override
   Future<TodoModel> addTodo({
     required String title,
     required String note,
-    required String userPk,
+    required String status,
   }) async {
+    const String url = '${AppConstant.apiUrl}/todo/list';
+
     final data = {
-      "user_profile": userPk,
       "title": title,
       "note": note,
+      "status": status,
     };
 
     return await ApiInterceptor.apiInstance()
         .post(url, data: data)
         .then((value) {
-      return {'status': value.statusCode, 'data': value.data};
-    }).then((value) {
       final response = value;
 
-      return TodoModel.fromMap(response);
+      return TodoModel.fromMap(response.data);
     }).catchError((error) {
       throw error;
     }).onError((error, stackTrace) {
@@ -44,6 +43,8 @@ class TodoRepositoryImpl extends TodoRepository {
 
   @override
   Future<TodoResponseModel> todoList() async {
+    const String url = '${AppConstant.apiUrl}/todo/list';
+
     return await ApiInterceptor.apiInstance().get(url).then((value) {
       final results = value.data['results'] as List<dynamic>;
       List<TodoModel> todos = [];
@@ -68,8 +69,25 @@ class TodoRepositoryImpl extends TodoRepository {
       {required String pk,
       required String title,
       required String note,
-      required String status}) {
-    // TODO: implement updatedTodo
-    throw UnimplementedError();
+      required String status}) async {
+    final data = {
+      "title": title,
+      "note": note,
+      "status": status,
+    };
+
+    final String url = '${AppConstant.apiUrl}/todo/$pk';
+
+    return await ApiInterceptor.apiInstance()
+        .post(url, data: data)
+        .then((value) {
+      final response = value;
+
+      return TodoModel.fromMap(response.data);
+    }).catchError((error) {
+      throw error;
+    }).onError((error, stackTrace) {
+      throw error!;
+    });
   }
 }
