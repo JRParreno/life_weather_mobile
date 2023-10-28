@@ -37,7 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void initState() {
-    handleTestValues();
+    // handleTestValues();
     super.initState();
   }
 

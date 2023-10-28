@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:life_weather_mobile/gen/colors.gen.dart';
 import 'package:life_weather_mobile/src/core/utils/profile_utils.dart';
 import 'package:life_weather_mobile/src/core/utils/spacing/v_space.dart';
+import 'package:life_weather_mobile/src/core/widgets/custom_btn.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/body/home_header.dart';
 import 'package:life_weather_mobile/src/features/journal/presentation/body/journal_diary_body.dart';
 import 'package:life_weather_mobile/src/features/journal/presentation/body/journal_todo_body.dart';
@@ -41,7 +42,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     JournalDiaryBody(bloc: todoBloc),
                     Vspace.md,
-                    JournalTodoBody(bloc: todoBloc)
+                    JournalTodoBody(bloc: todoBloc),
+                    Vspace.md,
+                    CustomBtn(
+                      label: 'Logout',
+                      onTap: () {
+                        handleLogout(context);
+                      },
+                    )
                   ],
                 ),
               ),
