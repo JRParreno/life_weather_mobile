@@ -8,6 +8,7 @@ import 'package:life_weather_mobile/src/core/utils/spacing/v_space.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/data/models/todo_model.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/bloc/bloc/todo_bloc.dart';
+import 'package:life_weather_mobile/src/features/journal/todo/presentation/widgets/delete_dialog.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/widgets/status_select.dart';
 
 class TodoAddUpdateArgs {
@@ -62,7 +63,14 @@ class _TodoAddUpdateScreenState extends State<TodoAddUpdateScreen> {
             }
 
             LoaderDialog.hide(context: context);
-            handleSnackBar();
+
+            if (state.isDeleteTodo) {
+              Navigator.pop(context);
+            } else {
+              Future.delayed(const Duration(seconds: 1), () {
+                handleSnackBar();
+              });
+            }
           }
         }
 
@@ -141,9 +149,27 @@ class _TodoAddUpdateScreenState extends State<TodoAddUpdateScreen> {
                       ),
                     ),
                     Vspace.sm,
+                    if (widget.args.todoModel != null) ...[
+                      DeleteDialog(
+                        title: widget.args.todoModel!.title,
+                        onTapOk: () {
+                          FocusManager.instance.primaryFocus?.unfocus();
+
+                          Navigator.pop(context);
+
+                          Future.delayed(const Duration(milliseconds: 500), () {
+                            handleDeleteTodo(
+                                widget.args.todoModel!.pk.toString());
+                          });
+                        },
+                      ),
+                      Vspace.sm,
+                    ],
                     CustomBtn(
-                      label: "Submit",
+                      label:
+                          widget.args.todoModel != null ? "Update" : "Submit",
                       onTap: () {
+                        FocusManager.instance.primaryFocus?.unfocus();
                         handleSubmitForm();
                       },
                     ),
@@ -198,6 +224,12 @@ class _TodoAddUpdateScreenState extends State<TodoAddUpdateScreen> {
         ),
       );
     }
+  }
+
+  void handleDeleteTodo(String pk) {
+    todoBloc.add(
+      DeleteTodoEvent(pk),
+    );
   }
 
   void handleSnackBar() {

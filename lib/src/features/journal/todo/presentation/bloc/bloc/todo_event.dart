@@ -51,3 +51,12 @@ class UpdateTodoEvent extends TodoEvent {
         status,
       ];
 }
+
+class DeleteTodoEvent extends TodoEvent {
+  final String pk;
+
+  const DeleteTodoEvent(this.pk);
+
+  @override
+  List<Object?> get props => [pk];
+}

@@ -36,9 +36,16 @@ class TodoRepositoryImpl extends TodoRepository {
   }
 
   @override
-  Future<void> deleteTodo(String pk) {
-    // TODO: implement deleteTodo
-    throw UnimplementedError();
+  Future<void> deleteTodo(String pk) async {
+    final String url = '${AppConstant.apiUrl}/todo/$pk';
+
+    return await ApiInterceptor.apiInstance().delete(url).then((value) {
+      return;
+    }).catchError((error) {
+      throw error;
+    }).onError((error, stackTrace) {
+      throw error!;
+    });
   }
 
   @override

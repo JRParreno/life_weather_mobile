@@ -17,10 +17,48 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<TodoGetEventList>(_todoGetEventList);
     on<AddTodoEvent>(_addTodoEvent);
     on<UpdateTodoEvent>(_updateTodoEvent);
+    on<DeleteTodoEvent>(_deleteTodoEvent);
   }
 
   void _initialEvent(InitialEvent event, Emitter<TodoState> emit) {
     return emit(const InitialState());
+  }
+
+  Future<void> _deleteTodoEvent(
+      DeleteTodoEvent event, Emitter<TodoState> emit) async {
+    final state = this.state;
+
+    if (state is TodoLoaded) {
+      emit(state.copyWith(viewStatus: ViewStatus.loading));
+
+      try {
+        await _repository.deleteTodo(
+          event.pk,
+        );
+
+        emit(
+          state.copyWith(
+            viewStatus: ViewStatus.successful,
+            isDeleteTodo: true,
+          ),
+        );
+
+        final currentTodos = [...state.todoResponseModel.todos];
+        currentTodos.removeWhere(
+          (element) => element.pk.toString() == event.pk,
+        );
+
+        emit(TodoLoaded(
+          todoResponseModel: state.todoResponseModel.copyWith(
+            todos: currentTodos,
+            count: state.todoResponseModel.count - 1,
+          ),
+        ));
+      } catch (e) {
+        emit(ErrorState(e.toString()));
+        emit(state.copyWith(viewStatus: ViewStatus.loading));
+      }
+    }
   }
 
   Future<void> _todoGetEventList(
