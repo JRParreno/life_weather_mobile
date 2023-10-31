@@ -10,6 +10,7 @@ abstract class ProfileRepository {
     required String contactNumber,
     required String gender,
   });
+  Future<ProfileModel> updateMoodEmoji(String emoji);
   Future<void> setPushToken(String token);
   Future<void> changePassword({
     required String oldPassword,

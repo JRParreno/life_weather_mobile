@@ -57,6 +57,26 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
+  Future<ProfileModel> updateMoodEmoji(
+    String emoji,
+  ) async {
+    const String url = '${AppConstant.apiUrl}/profile';
+
+    final data = {"mood_emoji": emoji};
+
+    return await ApiInterceptor.apiInstance()
+        .patch(url, data: data)
+        .then((value) {
+      final response = ProfileModel.fromJson(value.data);
+      return response;
+    }).catchError((error) {
+      throw error;
+    }).onError((error, stackTrace) {
+      throw error!;
+    });
+  }
+
+  @override
   Future<void> setPushToken(String token) async {
     const String url = '${AppConstant.serverUrl}/devices/';
 

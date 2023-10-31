@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:life_weather_mobile/gen/colors.gen.dart';
 import 'package:life_weather_mobile/src/core/bloc/profile/profile_bloc.dart';
 import 'package:life_weather_mobile/src/core/utils/spacing/v_space.dart';
+import 'package:life_weather_mobile/src/features/account/profile/data/repositories/profile_repository_impl.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/widgets/mood_tracker_dialog.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -124,7 +125,12 @@ class HomeHeader extends StatelessWidget {
       preSelect: preSelect,
       onSelect: (value) {
         BlocProvider.of<ProfileBloc>(context).add(SetMoodEmoji(value));
+        handleUpdateEmoji(value);
       },
     );
+  }
+
+  Future<void> handleUpdateEmoji(String value) async {
+    await ProfileRepositoryImpl().updateMoodEmoji(value);
   }
 }
