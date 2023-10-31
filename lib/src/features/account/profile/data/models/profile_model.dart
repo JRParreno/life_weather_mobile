@@ -16,6 +16,7 @@ sealed class ProfileModel extends Profile with _$ProfileModel {
     required String address,
     required String gender,
     String? profilePhoto,
+    String? moodEmoji,
   }) = _ProfileModel;
 
   factory ProfileModel.fromJson(Map<String, dynamic> json) =>
@@ -32,6 +33,7 @@ sealed class ProfileModel extends Profile with _$ProfileModel {
       address: '',
       gender: '',
       profilePhoto: null,
+      moodEmoji: null,
     );
   }
 }

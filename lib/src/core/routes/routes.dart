@@ -19,10 +19,10 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
           return const SignUpScreen();
         case ForgotPasswordScreen.routeName:
           return const ForgotPasswordScreen();
-        case HomeScreen.routeName:
-          return const HomeScreen();
         case HomeNavigation.routeName:
           return const HomeNavigation();
+        case HomeScreen.routeName:
+          return const HomeScreen();
         case JournalScreen.routeName:
           return const JournalScreen();
         case TodoScreen.routeName:

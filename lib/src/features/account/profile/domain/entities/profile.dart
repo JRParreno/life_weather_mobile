@@ -9,6 +9,7 @@ class Profile {
     required this.address,
     required this.gender,
     this.profilePhoto,
+    this.moodEmoji,
   });
 
   final String pk;
@@ -20,4 +21,5 @@ class Profile {
   final String address;
   final String gender;
   final String? profilePhoto;
+  final String? moodEmoji;
 }

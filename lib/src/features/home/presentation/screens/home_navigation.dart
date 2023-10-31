@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:life_weather_mobile/src/core/bloc/profile/profile_bloc.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/body/home_bottom_navbar.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_screen.dart';
+import 'package:life_weather_mobile/src/features/home/presentation/widgets/mood_tracker_dialog.dart';
 import 'package:life_weather_mobile/src/features/journal/presentation/journal_screen.dart';
 
 class HomeNavigation extends StatefulWidget {
@@ -15,6 +18,7 @@ class HomeNavigation extends StatefulWidget {
 
 class _HomeNavigationState extends State<HomeNavigation> {
   int currentElement = 0;
+  String? preSelect;
 
   static const List<Widget> _pages = <Widget>[
     HomeScreen(),
@@ -23,6 +27,18 @@ class _HomeNavigationState extends State<HomeNavigation> {
     HomeScreen(),
     HomeScreen(),
   ];
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => moodTrackerDialog(
+          context: context,
+          preSelect: preSelect,
+          onSelect: (value) {
+            handleOnSelectEmoji(value);
+          },
+        ));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,5 +58,9 @@ class _HomeNavigationState extends State<HomeNavigation> {
         ),
       ),
     );
+  }
+
+  void handleOnSelectEmoji(String value) {
+    BlocProvider.of<ProfileBloc>(context).add(SetMoodEmoji(value));
   }
 }

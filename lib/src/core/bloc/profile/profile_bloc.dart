@@ -17,6 +17,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<SetProfileEvent>(_setProfile);
     on<SetProfileLogoutEvent>(_setProfileLogoutEvent);
     on<SetProfilePicture>(_setProfilePicture);
+    on<SetMoodEmoji>(_setMoodEmoji);
   }
 
   void _initial(InitialEvent event, Emitter<ProfileState> emit) {
@@ -25,6 +26,18 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   void _setProfile(SetProfileEvent event, Emitter<ProfileState> emit) {
     return emit(ProfileLoaded(profile: event.profile));
+  }
+
+  void _setMoodEmoji(SetMoodEmoji event, Emitter<ProfileState> emit) {
+    final state = this.state;
+
+    if (state is ProfileLoaded) {
+      emit(
+        state.copyWith(
+          profile: state.profile!.copyWith(moodEmoji: event.emoji),
+        ),
+      );
+    }
   }
 
   void _setProfileLogoutEvent(

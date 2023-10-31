@@ -28,3 +28,12 @@ class SetProfilePicture extends ProfileEvent {
   @override
   List<Object?> get props => [profilePhoto];
 }
+
+class SetMoodEmoji extends ProfileEvent {
+  final String emoji;
+
+  const SetMoodEmoji(this.emoji);
+
+  @override
+  List<Object?> get props => [emoji];
+}
