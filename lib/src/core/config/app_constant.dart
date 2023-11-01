@@ -30,4 +30,6 @@ class AppConstant {
   static const apiUrl = '$serverUrl/api';
   static const apiUser = '$serverUrl/user';
   static const appName = 'Life Weather';
+
+  static const weatherApiKey = 'bb80294d73796b098327d24d487250ee';
 }

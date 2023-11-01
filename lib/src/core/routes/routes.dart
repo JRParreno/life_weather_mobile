@@ -7,6 +7,8 @@ import 'package:life_weather_mobile/src/features/home/presentation/screens/home_
 import 'package:life_weather_mobile/src/features/journal/presentation/journal_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/screens/todo_add_update_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/screens/todo_screen.dart';
+import 'package:life_weather_mobile/src/features/weather/presentation/weather_screen.dart';
+import 'package:life_weather_mobile/src/features/weather/presentation/weather_screen_v2.dart';
 
 Route<dynamic>? generateRoute(RouteSettings settings) {
   return MaterialPageRoute(
@@ -32,6 +34,10 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
           return TodoAddUpdateScreen(
             args: args,
           );
+        case WeatherScreen.routeName:
+          return const WeatherScreen();
+        case WeatherScreenV2.routeName:
+          return const WeatherScreenV2();
       }
 
       return const Scaffold(

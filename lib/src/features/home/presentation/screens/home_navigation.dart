@@ -6,6 +6,7 @@ import 'package:life_weather_mobile/src/features/account/profile/data/repositori
 import 'package:life_weather_mobile/src/features/home/presentation/body/home_bottom_navbar.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/presentation/journal_screen.dart';
+import 'package:life_weather_mobile/src/features/weather/presentation/weather_screen_v2.dart';
 
 class HomeNavigation extends StatefulWidget {
   const HomeNavigation({super.key});
@@ -22,7 +23,7 @@ class _HomeNavigationState extends State<HomeNavigation> {
 
   static const List<Widget> _pages = <Widget>[
     HomeScreen(),
-    HomeScreen(),
+    WeatherScreenV2(),
     JournalScreen(),
     HomeScreen(),
     HomeScreen(),

@@ -11,13 +11,14 @@ PreferredSizeWidget buildAppBar({
   List<Widget>? actions,
   Color? backgroundColor,
   Widget? titleWidget,
+  double elevation = 0,
 }) {
   return AppBar(
     toolbarHeight: kToolbarHeight,
     titleSpacing: 0,
     backgroundColor: backgroundColor ?? ColorName.primary,
     centerTitle: titleWidget != null ? false : true,
-    elevation: 0,
+    elevation: elevation,
     automaticallyImplyLeading: false,
     leading: !showBackBtn
         ? leading ??

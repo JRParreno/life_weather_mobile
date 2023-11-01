@@ -95,8 +95,8 @@ class HomeHeader extends StatelessWidget {
                                         width: 2,
                                       ),
                                     ),
-                                    padding: const EdgeInsets.only(
-                                        left: 4, bottom: 2),
+                                    padding:
+                                        const EdgeInsets.only(left: 2, top: 1),
                                     child: Center(
                                       child: Text(state.profile!.moodEmoji!),
                                     ),
