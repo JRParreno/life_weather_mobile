@@ -32,10 +32,10 @@ class CurrentWeatherV2 extends StatelessWidget {
         getBGWeatherCondition(weather.weatherConditionCode ?? 0);
 
     final textTheme = Theme.of(context).textTheme;
+    final height = MediaQuery.of(context).size.height;
 
     return Container(
-      height: MediaQuery.of(context).size.height * 0.35,
-      width: double.infinity,
+      height: height * 0.36,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: weatherConditionColor.backgroundColor,
@@ -50,6 +50,7 @@ class CurrentWeatherV2 extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
         children: [
           WeatherCelsiusCloud(
             date: weather.date!,

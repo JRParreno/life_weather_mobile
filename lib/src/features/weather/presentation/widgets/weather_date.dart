@@ -42,6 +42,24 @@ class WeatherDate extends StatelessWidget {
       );
     }
 
-    return const SizedBox();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CustomText(
+          text: DateFormat.E().format(date),
+          style: TextStyle(
+            color: textColor,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        CustomText(
+          text: DateFormat('MMM dd, yyyy').format(date),
+          style: TextStyle(
+            color: textColor,
+            fontWeight: FontWeight.w600,
+          ),
+        )
+      ],
+    );
   }
 }

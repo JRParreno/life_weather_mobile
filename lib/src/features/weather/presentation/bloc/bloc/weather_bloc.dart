@@ -17,28 +17,37 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       GetCurrentWeatherEvent event, Emitter<WeatherState> emit) async {
     final state = this.state;
 
-    emit(state.copyWith(viewStatus: ViewStatus.loading));
+    if (state.currentWeather == null) {
+      emit(state.copyWith(viewStatus: ViewStatus.loading));
 
-    try {
-      final lat = event.latitude;
-      final lng = event.longitude;
+      try {
+        final lat = event.latitude;
+        final lng = event.longitude;
 
-      final WeatherFactory wf = WeatherFactory(AppConstant.weatherApiKey);
+        final WeatherFactory wf = WeatherFactory(AppConstant.weatherApiKey);
 
-      final List<Weather> wfDays = await wf.fiveDayForecastByLocation(lat, lng);
+        final List<Weather> wfDays =
+            await wf.fiveDayForecastByLocation(lat, lng);
 
-      final Weather currentWeather =
-          await wf.currentWeatherByLocation(lat, lng);
+        final Weather currentWeather =
+            await wf.currentWeatherByLocation(lat, lng);
 
-      return emit(
-        state.copyWith(
-          fiveDaysWeather: getDayInterval(wfDays),
-          currentWeather: currentWeather,
-          viewStatus: ViewStatus.successful,
-        ),
-      );
-    } catch (e) {
-      emit(state.copyWith(viewStatus: ViewStatus.failed));
+        emit(
+          state.copyWith(
+            viewStatus: ViewStatus.successful,
+          ),
+        );
+
+        return emit(
+          state.copyWith(
+            fiveDaysWeather: getDayInterval(wfDays),
+            currentWeather: currentWeather,
+            viewStatus: ViewStatus.successful,
+          ),
+        );
+      } catch (e) {
+        emit(state.copyWith(viewStatus: ViewStatus.failed));
+      }
     }
   }
 

@@ -15,6 +15,7 @@ class WeatherState extends Equatable {
   List<Object?> get props => [
         fiveDaysWeather,
         currentWeather,
+        viewStatus,
       ];
 
   factory WeatherState.empty() {

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:life_weather_mobile/gen/colors.gen.dart';
 import 'package:life_weather_mobile/src/core/bloc/view_status.dart';
+import 'package:life_weather_mobile/src/core/utils/spacing/v_space.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
 import 'package:life_weather_mobile/src/features/weather/presentation/bloc/bloc/weather_bloc.dart';
 import 'package:life_weather_mobile/src/features/weather/presentation/body/current_weather_v2.dart';
+import 'package:life_weather_mobile/src/features/weather/presentation/body/five_days_weather.dart';
 
 class WeatherScreenV2 extends StatefulWidget {
   const WeatherScreenV2({super.key});
@@ -27,7 +29,7 @@ class _WeatherScreenV2State extends State<WeatherScreenV2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorName.white,
+      backgroundColor: Colors.white,
       appBar: buildAppBar(
         context: context,
         elevation: 1,
@@ -47,28 +49,35 @@ class _WeatherScreenV2State extends State<WeatherScreenV2> {
             LoaderDialog.show(context: context);
           }
 
-          if (state.viewStatus == ViewStatus.failed ||
-              state.viewStatus == ViewStatus.successful ||
-              state.currentWeather != null) {
+          if ((state.viewStatus == ViewStatus.failed ||
+                  state.viewStatus == ViewStatus.successful) &&
+              state.currentWeather == null) {
             LoaderDialog.hide(context: context);
           }
         },
         builder: (context, state) {
-          if (state.viewStatus == ViewStatus.successful) {
-            final currentWeather = state.currentWeather;
+          final currentWeather = state.currentWeather;
 
-            return Container(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  if (currentWeather != null) ...[
+          if (state.viewStatus == ViewStatus.successful &&
+              currentWeather != null) {
+            return SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
                     CurrentWeatherV2(
                       weather: currentWeather,
+                    ),
+                    Vspace.md,
+                    Column(
+                      children: state.fiveDaysWeather
+                          .map((weather) => FiveDaysWeather(weather: weather))
+                          .toList(),
                     )
-                  ]
-                ],
+                  ],
+                ),
               ),
             );
           }
