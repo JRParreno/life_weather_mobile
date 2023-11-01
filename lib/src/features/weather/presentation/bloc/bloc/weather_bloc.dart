@@ -42,7 +42,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
           state.copyWith(
             fiveDaysWeather: getDayInterval(wfDays),
             currentWeather: currentWeather,
-            viewStatus: ViewStatus.successful,
+            viewStatus: ViewStatus.none,
           ),
         );
       } catch (e) {

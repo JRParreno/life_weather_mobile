@@ -49,17 +49,15 @@ class _WeatherScreenV2State extends State<WeatherScreenV2> {
             LoaderDialog.show(context: context);
           }
 
-          if ((state.viewStatus == ViewStatus.failed ||
-                  state.viewStatus == ViewStatus.successful) &&
-              state.currentWeather == null) {
+          if (state.viewStatus == ViewStatus.failed ||
+              state.viewStatus == ViewStatus.successful) {
             LoaderDialog.hide(context: context);
           }
         },
         builder: (context, state) {
           final currentWeather = state.currentWeather;
 
-          if (state.viewStatus == ViewStatus.successful &&
-              currentWeather != null) {
+          if (state.viewStatus == ViewStatus.none && currentWeather != null) {
             return SingleChildScrollView(
               child: Container(
                 padding: const EdgeInsets.all(15.0),

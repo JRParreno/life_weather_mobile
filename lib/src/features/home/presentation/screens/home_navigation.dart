@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:life_weather_mobile/src/core/bloc/profile/profile_bloc.dart';
 import 'package:life_weather_mobile/src/features/account/profile/data/repositories/profile_repository_impl.dart';
+import 'package:life_weather_mobile/src/features/home/presentation/bloc/bloc/bottom_navigation_bloc.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/body/home_bottom_navbar.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/presentation/journal_screen.dart';
@@ -18,7 +19,6 @@ class HomeNavigation extends StatefulWidget {
 }
 
 class _HomeNavigationState extends State<HomeNavigation> {
-  int currentElement = 0;
   String? preSelect;
 
   static const List<Widget> _pages = <Widget>[
@@ -45,18 +45,20 @@ class _HomeNavigationState extends State<HomeNavigation> {
   Widget build(BuildContext context) {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.dark,
-      child: Scaffold(
-        body: SafeArea(
-          child: _pages.elementAt(currentElement),
-        ),
-        bottomNavigationBar: HomeBottomNavBar(
-          currentIndex: currentElement,
-          onTap: (int index) {
-            setState(() {
-              currentElement = index;
-            });
-          },
-        ),
+      child: BlocBuilder<BottomNavigationBloc, BottomNavigationState>(
+        builder: (context, state) {
+          return Scaffold(
+            body: SafeArea(
+              child: _pages.elementAt(state.index),
+            ),
+            bottomNavigationBar: HomeBottomNavBar(
+              currentIndex: state.index,
+              onTap: (int index) {
+                handleUpdateBottomNav(index);
+              },
+            ),
+          );
+        },
       ),
     );
   }
@@ -68,5 +70,10 @@ class _HomeNavigationState extends State<HomeNavigation> {
 
   Future<void> handleUpdateEmoji(String value) async {
     await ProfileRepositoryImpl().updateMoodEmoji(value);
+  }
+
+  void handleUpdateBottomNav(int index) {
+    BlocProvider.of<BottomNavigationBloc>(context)
+        .add(UpdateBottomNavEvent(index));
   }
 }
