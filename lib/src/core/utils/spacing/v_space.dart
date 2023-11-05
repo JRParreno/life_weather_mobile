@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_constructors_over_static_methods
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class Vspace extends StatelessWidget {
   final double size;
@@ -8,9 +9,7 @@ class Vspace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: size,
-    );
+    return Gap(size);
   }
 
   static Vspace get xxs => const Vspace(4);

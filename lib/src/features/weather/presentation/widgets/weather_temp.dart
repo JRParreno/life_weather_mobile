@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:life_weather_mobile/src/core/utils/spacing/v_space.dart';
 
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
@@ -46,9 +47,7 @@ class WeatherTemperature extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(
-              width: 10,
-            ),
+            const Gap(10),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [

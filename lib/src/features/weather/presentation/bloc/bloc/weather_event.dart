@@ -8,18 +8,4 @@ abstract class WeatherEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class GetCurrentWeatherEvent extends WeatherEvent {
-  final double latitude;
-  final double longitude;
-
-  const GetCurrentWeatherEvent({
-    required this.latitude,
-    required this.longitude,
-  });
-
-  @override
-  List<Object?> get props => [
-        latitude,
-        longitude,
-      ];
-}
+class GetCurrentWeatherEvent extends WeatherEvent {}

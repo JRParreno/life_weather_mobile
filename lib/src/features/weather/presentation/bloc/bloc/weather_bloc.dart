@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:life_weather_mobile/src/core/bloc/view_status.dart';
 import 'package:life_weather_mobile/src/core/config/app_constant.dart';
+import 'package:life_weather_mobile/src/core/location/get_current_location.dart';
+import 'package:life_weather_mobile/src/core/permission/app_permission.dart';
 import 'package:weather/weather.dart';
 
 part 'weather_event.dart';
@@ -15,39 +17,52 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
 
   Future<void> _getCurrentWeatherEvent(
       GetCurrentWeatherEvent event, Emitter<WeatherState> emit) async {
-    final state = this.state;
+    final locationPermGranted = await AppPermission.locationPermission();
 
-    if (state.currentWeather == null) {
-      emit(state.copyWith(viewStatus: ViewStatus.loading));
+    if (locationPermGranted) {
+      final state = this.state;
+      emit(state.copyWith(isLocationEnable: true));
 
-      try {
-        final lat = event.latitude;
-        final lng = event.longitude;
+      if (state.currentWeather == null) {
+        final userCurrentLocation = await getCurrentLocation();
 
-        final WeatherFactory wf = WeatherFactory(AppConstant.weatherApiKey);
+        emit(state.copyWith(viewStatus: ViewStatus.loading));
 
-        final List<Weather> wfDays =
-            await wf.fiveDayForecastByLocation(lat, lng);
+        try {
+          final lat = userCurrentLocation.latitude;
+          final lng = userCurrentLocation.longitude;
 
-        final Weather currentWeather =
-            await wf.currentWeatherByLocation(lat, lng);
+          final WeatherFactory wf = WeatherFactory(AppConstant.weatherApiKey);
 
-        emit(
-          state.copyWith(
-            viewStatus: ViewStatus.successful,
-          ),
-        );
+          final List<Weather> wfDays =
+              await wf.fiveDayForecastByLocation(lat, lng);
 
-        return emit(
-          state.copyWith(
-            fiveDaysWeather: getDayInterval(wfDays),
-            currentWeather: currentWeather,
-            viewStatus: ViewStatus.none,
-          ),
-        );
-      } catch (e) {
-        emit(state.copyWith(viewStatus: ViewStatus.failed));
+          final Weather currentWeather =
+              await wf.currentWeatherByLocation(lat, lng);
+
+          emit(
+            state.copyWith(
+              viewStatus: ViewStatus.successful,
+            ),
+          );
+
+          return emit(
+            state.copyWith(
+              fiveDaysWeather: getDayInterval(wfDays),
+              currentWeather: currentWeather,
+              viewStatus: ViewStatus.none,
+            ),
+          );
+        } catch (e) {
+          emit(state.copyWith(viewStatus: ViewStatus.failed));
+        }
       }
+    } else {
+      emit(
+        state.copyWith(
+          isLocationEnable: false,
+        ),
+      );
     }
   }
 

@@ -32,10 +32,8 @@ class CurrentWeatherV2 extends StatelessWidget {
         getBGWeatherCondition(weather.weatherConditionCode ?? 0);
 
     final textTheme = Theme.of(context).textTheme;
-    final height = MediaQuery.of(context).size.height;
 
     return Container(
-      height: height * 0.36,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: weatherConditionColor.backgroundColor,
@@ -61,45 +59,53 @@ class CurrentWeatherV2 extends StatelessWidget {
             textColor: weatherConditionColor.textColor,
           ),
           Vspace.sm,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomText(
-                    text:
-                        '${toBeginningOfSentenceCase(weather.weatherDescription)}',
-                    style: textTheme.headlineSmall!.apply(
-                      color: weatherConditionColor.textColor,
-                    ),
+          FittedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                FittedBox(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomText(
+                        text:
+                            '${toBeginningOfSentenceCase(weather.weatherDescription)}',
+                        style: textTheme.headlineSmall!.apply(
+                          color: weatherConditionColor.textColor,
+                        ),
+                        maxLines: 1,
+                      ),
+                      Vspace.sm,
+                      WeatherTemperature(
+                        lowTemp:
+                            '${weather.tempMin?.celsius?.toInt().toString()}°',
+                        highTemp:
+                            '${weather.tempMax?.celsius?.toInt().toString()}°',
+                        textColor: weatherConditionColor.textColor,
+                      ),
+                    ],
                   ),
-                  Vspace.sm,
-                  WeatherTemperature(
-                    lowTemp: '${weather.tempMin?.celsius?.toInt().toString()}°',
-                    highTemp:
-                        '${weather.tempMax?.celsius?.toInt().toString()}°',
-                    textColor: weatherConditionColor.textColor,
+                ),
+                FittedBox(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      WeatherOther(
+                        humidity: weather.humidity ?? 0,
+                        windSpeed: weather.windSpeed ?? 0,
+                        textColor: weatherConditionColor.textColor,
+                      ),
+                      Vspace.sm,
+                      WeatherLocation(
+                        areaName: weather.areaName ?? '',
+                        country: weather.country ?? '',
+                        textColor: weatherConditionColor.textColor,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  WeatherLocation(
-                    areaName: weather.areaName ?? '',
-                    country: weather.country ?? '',
-                    textColor: weatherConditionColor.textColor,
-                  ),
-                  Vspace.sm,
-                  WeatherOther(
-                    humidity: weather.humidity ?? 0,
-                    windSpeed: weather.windSpeed ?? 0,
-                    textColor: weatherConditionColor.textColor,
-                  ),
-                ],
-              )
-            ],
+                )
+              ],
+            ),
           )
         ],
       ),

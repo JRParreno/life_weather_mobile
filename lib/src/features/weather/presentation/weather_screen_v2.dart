@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:life_weather_mobile/gen/colors.gen.dart';
 import 'package:life_weather_mobile/src/core/bloc/view_status.dart';
+import 'package:life_weather_mobile/src/core/permission/app_permission.dart';
 import 'package:life_weather_mobile/src/core/utils/spacing/v_space.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
 import 'package:life_weather_mobile/src/features/weather/presentation/bloc/bloc/weather_bloc.dart';
@@ -57,6 +59,30 @@ class _WeatherScreenV2State extends State<WeatherScreenV2> {
         builder: (context, state) {
           final currentWeather = state.currentWeather;
 
+          if (!state.isLocationEnable) {
+            return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 25,
+                  )
+                ],
+              ),
+              padding: const EdgeInsets.all(15),
+              child: Center(
+                  child: CustomBtn(
+                label: 'Location not enabled, tap to open app settings.',
+                onTap: () {
+                  handleAppSettings();
+                },
+                backgroundColor: ColorName.error,
+              )),
+            );
+          }
+
           if (state.viewStatus == ViewStatus.none && currentWeather != null) {
             return SingleChildScrollView(
               child: Container(
@@ -88,7 +114,18 @@ class _WeatherScreenV2State extends State<WeatherScreenV2> {
 
   void setBloc() {
     weatherBloc = BlocProvider.of<WeatherBloc>(context);
-    weatherBloc.add(const GetCurrentWeatherEvent(
-        latitude: 13.582336, longitude: 123.2928768));
+    weatherBloc.add(GetCurrentWeatherEvent());
+  }
+
+  Future<void> handleAppSettings() async {
+    final locationPermGranted = await AppPermission.locationPermission();
+
+    if (locationPermGranted) {
+      weatherBloc.add(GetCurrentWeatherEvent());
+
+      return;
+    }
+
+    Geolocator.openAppSettings();
   }
 }

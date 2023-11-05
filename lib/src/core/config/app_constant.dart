@@ -20,7 +20,7 @@ class AppConstant {
   static const clientId = 'NWk2s2dK1MsXfmFYUDBH4gbw5d1CZ0CsDoeoszNu';
   static const clientSecret =
       'yA0lNm4kvAxMJYNXU589eUM4lVtUZQYFlGW01suk2P5BNDO4Lw7g8JzyfjazspAwn0A9lqPLqGuOI7ZC5xIVImLLZCfuIh9D4MFz5OC2w28yV49nd0KGXHxrn7bonjer';
-  static const serverUrl = 'http://127.0.0.1:8000';
+  static const serverUrl = 'http://192.168.254.103:8000';
 
   // static const clientId = 'O03Jbck3kLuqPeLCHaCHyB7HI9gOUKYhFvKhvQDa';
   // static const clientSecret =

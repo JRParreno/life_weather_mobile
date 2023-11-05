@@ -79,7 +79,6 @@ class _WeatherScreenState extends State<WeatherScreen> {
 
   void setBloc() {
     weatherBloc = BlocProvider.of<WeatherBloc>(context);
-    weatherBloc.add(const GetCurrentWeatherEvent(
-        latitude: 13.582336, longitude: 123.2928768));
+    weatherBloc.add(GetCurrentWeatherEvent());
   }
 }

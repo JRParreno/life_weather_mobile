@@ -20,24 +20,18 @@ class JournalBodyContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-
     return Container(
-      constraints: isEmpty
-          ? null
-          : BoxConstraints(
-              maxHeight: height * 0.4,
-              minHeight: height * 0.2,
-            ),
       decoration: BoxDecoration(
         color: backgroundColor ?? ColorName.white,
-        border: Border.all(
-          color: ColorName.placeHolder,
-          width: 2,
-        ),
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.grey,
+            blurRadius: 25,
+          )
+        ],
       ),
-      padding: const EdgeInsets.all(5),
+      padding: const EdgeInsets.all(15),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

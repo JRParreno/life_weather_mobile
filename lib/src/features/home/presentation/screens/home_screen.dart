@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:life_weather_mobile/gen/colors.gen.dart';
 import 'package:life_weather_mobile/src/core/bloc/view_status.dart';
+import 'package:life_weather_mobile/src/core/permission/app_permission.dart';
 import 'package:life_weather_mobile/src/core/utils/profile_utils.dart';
 import 'package:life_weather_mobile/src/core/utils/spacing/v_space.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
@@ -49,9 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       BlocBuilder<WeatherBloc, WeatherState>(
                         bloc: weatherBloc,
                         builder: (context, state) {
-                          if (state.viewStatus == ViewStatus.loading) {
+                          if (state.viewStatus == ViewStatus.loading ||
+                              !state.isLocationEnable) {
                             return Container(
-                              height: MediaQuery.of(context).size.height * 0.36,
+                              height: !state.isLocationEnable
+                                  ? null
+                                  : MediaQuery.of(context).size.height * 0.36,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white,
@@ -63,8 +68,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                               padding: const EdgeInsets.all(15),
-                              child: const Center(
-                                child: CircularProgressIndicator(),
+                              child: Center(
+                                child: !state.isLocationEnable
+                                    ? CustomBtn(
+                                        label:
+                                            'Location not enabled, tap to open app settings.',
+                                        onTap: () {
+                                          handleAppSettings();
+                                        },
+                                        backgroundColor: ColorName.error,
+                                      )
+                                    : const CircularProgressIndicator(),
                               ),
                             );
                           }
@@ -113,13 +127,27 @@ class _HomeScreenState extends State<HomeScreen> {
     todoBloc = BlocProvider.of<TodoBloc>(context);
     weatherBloc = BlocProvider.of<WeatherBloc>(context);
 
-    weatherBloc.add(const GetCurrentWeatherEvent(
-        latitude: 13.582336, longitude: 123.2928768));
+    handleBlocEvents();
+  }
+
+  void handleBlocEvents() {
+    weatherBloc.add(GetCurrentWeatherEvent());
     todoBloc.add(const TodoGetEventList());
   }
 
   void handleUpdateBottomNav(int index) {
     BlocProvider.of<BottomNavigationBloc>(context)
         .add(UpdateBottomNavEvent(index));
+  }
+
+  Future<void> handleAppSettings() async {
+    final locationPermGranted = await AppPermission.locationPermission();
+
+    if (locationPermGranted) {
+      handleBlocEvents();
+      return;
+    }
+
+    Geolocator.openAppSettings();
   }
 }

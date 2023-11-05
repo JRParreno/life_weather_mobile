@@ -20,13 +20,13 @@ class WeatherLocation extends StatelessWidget {
       children: [
         Icon(
           Icons.location_on_outlined,
-          color: textColor,
+          color: textColor.withOpacity(0.75),
           size: 25,
         ),
         CustomText(
           text: '$country, $areaName',
           style: textTheme.headlineSmall!.apply(
-            color: textColor,
+            color: textColor.withOpacity(0.75),
           ),
         )
       ],
