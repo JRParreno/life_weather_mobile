@@ -13,6 +13,8 @@ import 'package:life_weather_mobile/src/features/account/profile/data/models/pro
 import 'package:life_weather_mobile/src/features/account/profile/data/repositories/profile_repository_impl.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/bloc/bloc/bottom_navigation_bloc.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_navigation.dart';
+import 'package:life_weather_mobile/src/features/journal/diary/data/repositories/diary_repository_impl.dart';
+import 'package:life_weather_mobile/src/features/journal/diary/presentation/bloc/bloc/diary_bloc.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/bloc/bloc/todo_bloc.dart';
 import 'package:life_weather_mobile/src/features/weather/presentation/bloc/bloc/weather_bloc.dart';
 
@@ -72,6 +74,7 @@ class _LifeWeatherState extends State<LifeWeather> {
         BlocProvider(create: (ctx) => TodoBloc(TodoRepositoryImpl())),
         BlocProvider(create: (ctx) => WeatherBloc()),
         BlocProvider(create: (ctx) => BottomNavigationBloc()),
+        BlocProvider(create: (ctx) => DiaryBloc(DiaryRepositoryImpl())),
       ],
       child: ScreenUtilInit(
         designSize: const Size(375, 812),

@@ -9,6 +9,7 @@ import 'package:life_weather_mobile/src/core/utils/spacing/v_space.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/bloc/bloc/bottom_navigation_bloc.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/body/home_header.dart';
+import 'package:life_weather_mobile/src/features/journal/diary/presentation/bloc/bloc/diary_bloc.dart';
 import 'package:life_weather_mobile/src/features/journal/presentation/body/journal_diary_body.dart';
 import 'package:life_weather_mobile/src/features/journal/presentation/body/journal_todo_body.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/bloc/bloc/todo_bloc.dart';
@@ -26,6 +27,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late TodoBloc todoBloc;
   late WeatherBloc weatherBloc;
+  late DiaryBloc diaryBloc;
 
   @override
   void initState() {
@@ -98,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                       Vspace.md,
-                      JournalDiaryBody(bloc: todoBloc),
+                      JournalDiaryBody(bloc: diaryBloc),
                       Vspace.md,
                       JournalTodoBody(bloc: todoBloc),
                       Vspace.md,
@@ -126,6 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void handleSetBloc() {
     todoBloc = BlocProvider.of<TodoBloc>(context);
     weatherBloc = BlocProvider.of<WeatherBloc>(context);
+    diaryBloc = BlocProvider.of<DiaryBloc>(context);
 
     handleBlocEvents();
   }
@@ -133,6 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void handleBlocEvents() {
     weatherBloc.add(GetCurrentWeatherEvent());
     todoBloc.add(const TodoGetEventList());
+    diaryBloc.add(GetDiaryEvent());
   }
 
   void handleUpdateBottomNav(int index) {

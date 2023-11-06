@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:life_weather_mobile/src/core/utils/spacing/v_space.dart';
+import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
+import 'package:life_weather_mobile/src/features/journal/diary/data/models/diary.dart';
+
+class DiaryCard extends StatelessWidget {
+  const DiaryCard({
+    Key? key,
+    required this.diary,
+  }) : super(key: key);
+
+  final Diary diary;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return GestureDetector(
+      onTap: () {
+        // handleOntap(
+        //   diary: diary,
+        //   context: context,
+        // );
+      },
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomText(
+                    text: diary.title,
+                    style: textTheme.titleMedium,
+                  ),
+                  Vspace.xs,
+                  CustomText(
+                    text: formattedDate(
+                      diary.dateCreated,
+                    ),
+                    style: textTheme.labelSmall,
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  String formattedDate(String dateCreated) {
+    final f = DateFormat('MMM dd, yyyy hh:mm');
+
+    return f.format(DateTime.parse(dateCreated));
+  }
+
+  void handleOntap({
+    required Diary diary,
+    required BuildContext context,
+  }) {
+    // Navigator.of(context).pushNamed(
+    //   TodoAddUpdateScreen.routeName,
+    //   arguments: TodoAddUpdateArgs(diary),
+    // );
+  }
+}
