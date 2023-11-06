@@ -63,7 +63,12 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
   Future<void> _todoGetEventList(
       TodoGetEventList event, Emitter<TodoState> emit) async {
-    emit(const LoadingState());
+    final state = this.state;
+
+    if (state is! TodoLoaded) {
+      emit(const LoadingState());
+    }
+
     try {
       final todoRes = await _repository.todoList();
       emit(TodoLoaded(

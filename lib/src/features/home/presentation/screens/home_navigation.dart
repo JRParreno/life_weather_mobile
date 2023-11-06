@@ -9,6 +9,7 @@ import 'package:life_weather_mobile/src/features/home/presentation/body/home_bot
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_screen.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/widgets/mood_tracker_dialog.dart';
 import 'package:life_weather_mobile/src/features/journal/presentation/journal_screen.dart';
+import 'package:life_weather_mobile/src/features/notifications/presentation/screen/notification_screen.dart';
 import 'package:life_weather_mobile/src/features/weather/presentation/weather_screen_v2.dart';
 
 class HomeNavigation extends StatefulWidget {
@@ -27,8 +28,8 @@ class _HomeNavigationState extends State<HomeNavigation> {
     HomeScreen(),
     WeatherScreenV2(),
     JournalScreen(),
-    HomeScreen(),
-    HomeScreen(),
+    NotificationSccreen(),
+    NotificationSccreen(),
   ];
 
   @override

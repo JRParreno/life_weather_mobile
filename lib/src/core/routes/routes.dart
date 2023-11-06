@@ -8,6 +8,7 @@ import 'package:life_weather_mobile/src/features/journal/diary/presentation/scre
 import 'package:life_weather_mobile/src/features/journal/presentation/journal_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/screens/todo_add_update_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/screens/todo_screen.dart';
+import 'package:life_weather_mobile/src/features/notifications/presentation/screen/notification_screen.dart';
 import 'package:life_weather_mobile/src/features/weather/presentation/weather_screen.dart';
 import 'package:life_weather_mobile/src/features/weather/presentation/weather_screen_v2.dart';
 
@@ -41,6 +42,8 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
           return const WeatherScreenV2();
         case DiaryAddScreen.routeName:
           return const DiaryAddScreen();
+        case NotificationSccreen.routeName:
+          return const NotificationSccreen();
       }
 
       return const Scaffold(

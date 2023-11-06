@@ -38,7 +38,9 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
   Future<void> _getDiaryEvent(
       GetDiaryEvent event, Emitter<DiaryState> emit) async {
     try {
-      emit(state.copyWith(viewStatus: ViewStatus.loading));
+      if (state.viewStatus == ViewStatus.none) {
+        emit(state.copyWith(viewStatus: ViewStatus.loading));
+      }
 
       final page = state.diaryResponseModel.nextPage ?? 1;
 
