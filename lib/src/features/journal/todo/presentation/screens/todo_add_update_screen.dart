@@ -83,9 +83,22 @@ class _TodoAddUpdateScreenState extends State<TodoAddUpdateScreen> {
         child: Scaffold(
           backgroundColor: const Color(0xFFB9DFE3),
           appBar: buildAppBar(
-              context: context,
-              title:
-                  '${widget.args.todoModel != null ? 'Update' : 'Add'} Todo'),
+            context: context,
+            title: '${widget.args.todoModel != null ? 'Update' : 'Add'} Todo',
+            leading: IconButton(
+              icon: const Icon(
+                Icons.chevron_left,
+                size: 40,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            backgroundColor: const Color(0xFFB9DFE3),
+            isDarkMode: false,
+            elevation: 1,
+          ),
           body: SingleChildScrollView(
             child: Form(
               key: formKey,

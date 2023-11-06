@@ -60,3 +60,5 @@ class DeleteTodoEvent extends TodoEvent {
   @override
   List<Object?> get props => [pk];
 }
+
+class PaginateTodoEvent extends TodoEvent {}

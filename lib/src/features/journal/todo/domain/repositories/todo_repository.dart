@@ -2,7 +2,7 @@ import 'package:life_weather_mobile/src/features/journal/todo/data/models/todo_m
 import 'package:life_weather_mobile/src/features/journal/todo/data/models/todo_response_model.dart';
 
 abstract class TodoRepository {
-  Future<TodoResponseModel> todoList();
+  Future<TodoResponseModel> todoList(int page);
 
   Future<TodoModel> addTodo({
     required String title,

@@ -18,6 +18,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     on<AddTodoEvent>(_addTodoEvent);
     on<UpdateTodoEvent>(_updateTodoEvent);
     on<DeleteTodoEvent>(_deleteTodoEvent);
+
+    on<PaginateTodoEvent>(_paginateTodoEvent);
   }
 
   void _initialEvent(InitialEvent event, Emitter<TodoState> emit) {
@@ -70,7 +72,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     }
 
     try {
-      final todoRes = await _repository.todoList();
+      final todoRes = await _repository.todoList(1);
       emit(TodoLoaded(
         todoResponseModel: todoRes,
       ));
@@ -147,6 +149,40 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       } catch (e) {
         emit(ErrorState(e.toString()));
         emit(state.copyWith(viewStatus: ViewStatus.loading));
+      }
+    }
+  }
+
+  Future<void> _paginateTodoEvent(
+      PaginateTodoEvent event, Emitter<TodoState> emit) async {
+    final state = this.state;
+
+    if (state is TodoLoaded) {
+      if (state.todoResponseModel.hasNextPage &&
+          state.todoResponseModel.page > 0 &&
+          state.viewStatus == ViewStatus.none) {
+        try {
+          emit(
+            TodoLoaded(
+                todoResponseModel: state.todoResponseModel,
+                viewStatus: ViewStatus.loading),
+          );
+
+          final todoRes =
+              await _repository.todoList(state.todoResponseModel.page);
+          emit(
+            TodoLoaded(
+              todoResponseModel: TodoResponseModel(
+                count: todoRes.count,
+                hasNextPage: todoRes.hasNextPage,
+                todos: [...state.todoResponseModel.todos, ...todoRes.todos],
+                page: todoRes.page,
+              ),
+            ),
+          );
+        } catch (e) {
+          emit(ErrorState(e.toString()));
+        }
       }
     }
   }

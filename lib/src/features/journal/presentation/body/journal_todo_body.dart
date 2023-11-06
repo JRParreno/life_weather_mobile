@@ -5,6 +5,7 @@ import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
 import 'package:life_weather_mobile/src/features/journal/presentation/widgets/journal_body_container.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/bloc/bloc/todo_bloc.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/screens/todo_add_update_screen.dart';
+import 'package:life_weather_mobile/src/features/journal/todo/presentation/screens/todo_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/widgets/todo_card.dart';
 
 class JournalTodoBody extends StatelessWidget {
@@ -25,6 +26,7 @@ class JournalTodoBody extends StatelessWidget {
             backgroundColor: const Color(0xFFB9DFE3),
             isEmpty: isEmpty,
             isShowViewAll: todos.length > 3,
+            routeName: TodoScreen.routeName,
             headerTitle: 'Todos',
             content: isEmpty
                 ? Flexible(
@@ -56,7 +58,10 @@ class JournalTodoBody extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final item = state.todoResponseModel.todos[index];
 
-                          return TodoCard(todoModel: item);
+                          return TodoCard(
+                            todoModel: item,
+                            isList: false,
+                          );
                         },
                       ),
                       Vspace.xs,

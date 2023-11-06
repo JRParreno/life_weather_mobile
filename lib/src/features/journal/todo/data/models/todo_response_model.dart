@@ -7,17 +7,20 @@ class TodoResponseModel {
     required this.todos,
     required this.count,
     required this.hasNextPage,
+    this.page = 1,
   });
 
   final List<TodoModel> todos;
   final int count;
   final bool hasNextPage;
+  final int page;
 
   factory TodoResponseModel.empty() {
     return const TodoResponseModel(
       count: 0,
       hasNextPage: false,
       todos: [],
+      page: -1,
     );
   }
 
@@ -49,11 +52,13 @@ class TodoResponseModel {
     List<TodoModel>? todos,
     int? count,
     bool? hasNextPage,
+    int? page,
   }) {
     return TodoResponseModel(
       todos: todos ?? this.todos,
       count: count ?? this.count,
       hasNextPage: hasNextPage ?? this.hasNextPage,
+      page: page ?? this.page,
     );
   }
 }

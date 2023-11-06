@@ -9,9 +9,11 @@ class TodoCard extends StatelessWidget {
   const TodoCard({
     Key? key,
     required this.todoModel,
+    this.isList = true,
   }) : super(key: key);
 
   final TodoModel todoModel;
+  final bool isList;
 
   @override
   Widget build(BuildContext context) {
@@ -24,43 +26,46 @@ class TodoCard extends StatelessWidget {
           context: context,
         );
       },
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomText(
-                    text: todoModel.title,
-                    style: textTheme.titleMedium,
-                  ),
-                  Vspace.xs,
-                  CustomText(
-                    text: formattedDate(
-                      todoModel.dateCreated,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: isList ? 10 : 0),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomText(
+                      text: todoModel.title,
+                      style: textTheme.titleLarge,
                     ),
-                    style: textTheme.labelSmall,
-                  )
-                ],
-              ),
-              Container(
-                padding: const EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
-                  color: getStatusColor(todoModel.status),
+                    Vspace.xs,
+                    CustomText(
+                      text: formattedDate(
+                        todoModel.dateCreated,
+                      ),
+                      style: textTheme.labelSmall,
+                    )
+                  ],
                 ),
-                child: CustomText(
-                  text: todoModel.status,
-                  style: textTheme.labelSmall!
-                      .apply(color: Colors.white, fontSizeFactor: 1),
-                ),
-              )
-            ],
+                Container(
+                  padding: const EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: getStatusColor(todoModel.status),
+                  ),
+                  child: CustomText(
+                    text: todoModel.status,
+                    style: textTheme.labelSmall!
+                        .apply(color: Colors.white, fontSizeFactor: 1),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

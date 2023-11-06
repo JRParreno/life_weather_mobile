@@ -49,8 +49,8 @@ class TodoRepositoryImpl extends TodoRepository {
   }
 
   @override
-  Future<TodoResponseModel> todoList() async {
-    const String url = '${AppConstant.apiUrl}/todo/list';
+  Future<TodoResponseModel> todoList(int page) async {
+    final String url = '${AppConstant.apiUrl}/todo/list?page=$page';
 
     return await ApiInterceptor.apiInstance().get(url).then((value) {
       final results = value.data['results'] as List<dynamic>;
@@ -61,9 +61,11 @@ class TodoRepositoryImpl extends TodoRepository {
       }
 
       return TodoResponseModel(
-          todos: todos,
-          count: value.data['count'],
-          hasNextPage: value.data['next'] != null);
+        todos: todos,
+        count: value.data['count'],
+        hasNextPage: value.data['next'] != null,
+        page: value.data['next'] != null ? page + 1 : -1,
+      );
     }).catchError((error) {
       throw error;
     }).onError((error, stackTrace) {
