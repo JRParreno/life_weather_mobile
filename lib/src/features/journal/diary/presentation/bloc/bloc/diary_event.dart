@@ -10,3 +10,12 @@ class DiaryEvent extends Equatable {
 class GetDiaryEvent extends DiaryEvent {}
 
 class PaginateDiaryEvent extends DiaryEvent {}
+
+class AddDiaryEvent extends DiaryEvent {
+  final String title;
+
+  const AddDiaryEvent(this.title);
+
+  @override
+  List<Object?> get props => [title];
+}

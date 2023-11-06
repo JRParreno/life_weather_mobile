@@ -10,9 +10,24 @@ class DiaryRepositoryImpl extends DiaryRepository {
   final Dio dio = Dio();
 
   @override
-  Future<Diary> addDiary(String title) {
-    // TODO: implement addDiary
-    throw UnimplementedError();
+  Future<Diary> addDiary(String title) async {
+    const String url = '${AppConstant.apiUrl}/diary/list';
+
+    final data = {
+      "title": title,
+    };
+
+    return await ApiInterceptor.apiInstance()
+        .post(url, data: data)
+        .then((value) {
+      final response = value.data;
+
+      return Diary.fromMap(response);
+    }).catchError((error) {
+      throw error;
+    }).onError((error, stackTrace) {
+      throw error!;
+    });
   }
 
   @override

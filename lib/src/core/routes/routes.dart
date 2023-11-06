@@ -4,6 +4,7 @@ import 'package:life_weather_mobile/src/features/account/login/presentation/scre
 import 'package:life_weather_mobile/src/features/account/signup/presentation/screens/sign_up_screen.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_navigation.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_screen.dart';
+import 'package:life_weather_mobile/src/features/journal/diary/presentation/screen/diary_add_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/presentation/journal_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/screens/todo_add_update_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/screens/todo_screen.dart';
@@ -38,6 +39,8 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
           return const WeatherScreen();
         case WeatherScreenV2.routeName:
           return const WeatherScreenV2();
+        case DiaryAddScreen.routeName:
+          return const DiaryAddScreen();
       }
 
       return const Scaffold(

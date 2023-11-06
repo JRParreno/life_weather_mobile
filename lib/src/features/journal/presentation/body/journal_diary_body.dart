@@ -4,6 +4,7 @@ import 'package:life_weather_mobile/src/core/bloc/view_status.dart';
 import 'package:life_weather_mobile/src/core/utils/spacing/v_space.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
 import 'package:life_weather_mobile/src/features/journal/diary/presentation/bloc/bloc/diary_bloc.dart';
+import 'package:life_weather_mobile/src/features/journal/diary/presentation/screen/diary_add_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/presentation/widgets/journal_body_container.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/widgets/diary_card.dart';
 
@@ -39,7 +40,7 @@ class JournalDiaryBody extends StatelessWidget {
                       CustomBtn(
                         label: 'Add Diary',
                         onTap: () {
-                          // handleOntap(context);
+                          handleOnTap(context);
                         },
                         unsetWidth: true,
                       ),
@@ -48,7 +49,9 @@ class JournalDiaryBody extends StatelessWidget {
                   )
                 : CustomBtn(
                     label: 'Tap here to add Diary',
-                    onTap: () {},
+                    onTap: () {
+                      handleOnTap(context);
+                    },
                     unsetWidth: true,
                     backgroundColor: const Color(0xFF7B5B5C),
                   ),
@@ -76,5 +79,9 @@ class JournalDiaryBody extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void handleOnTap(BuildContext context) {
+    Navigator.of(context).pushNamed(DiaryAddScreen.routeName);
   }
 }
