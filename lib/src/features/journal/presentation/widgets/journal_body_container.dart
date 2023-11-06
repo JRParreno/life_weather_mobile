@@ -10,6 +10,7 @@ class JournalBodyContainer extends StatelessWidget {
     this.isShowViewAll = false,
     this.isEmpty = false,
     this.backgroundColor,
+    this.routeName,
   });
 
   final String headerTitle;
@@ -17,6 +18,7 @@ class JournalBodyContainer extends StatelessWidget {
   final bool isShowViewAll;
   final bool isEmpty;
   final Color? backgroundColor;
+  final String? routeName;
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +47,15 @@ class JournalBodyContainer extends StatelessWidget {
                     .headlineSmall!
                     .apply(fontWeightDelta: 4),
               ),
-              if (isShowViewAll) ...[
+              if (isShowViewAll && routeName != null) ...[
                 CustomTextLink(
                   text: "View All",
                   style: const TextStyle(
                     color: ColorName.placeHolder,
                   ),
-                  onTap: () => {},
+                  onTap: () {
+                    Navigator.of(context).pushNamed(routeName!);
+                  },
                 ),
               ]
             ],

@@ -30,14 +30,16 @@ class _JournalScreenState extends State<JournalScreen> {
     return Scaffold(
       appBar:
           buildAppBar(context: context, showBackBtn: true, title: "Journal"),
-      body: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            JournalDiaryBody(bloc: diaryBloc),
-            Vspace.md,
-            JournalTodoBody(bloc: todoBloc)
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            children: [
+              JournalDiaryBody(bloc: diaryBloc),
+              Vspace.md,
+              JournalTodoBody(bloc: todoBloc)
+            ],
+          ),
         ),
       ),
     );

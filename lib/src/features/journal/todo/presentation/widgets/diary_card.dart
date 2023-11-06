@@ -28,7 +28,7 @@ class DiaryCard extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -36,7 +36,7 @@ class DiaryCard extends StatelessWidget {
                 children: [
                   CustomText(
                     text: diary.title,
-                    style: textTheme.titleMedium,
+                    style: textTheme.titleLarge,
                   ),
                   Vspace.xs,
                   CustomText(
@@ -46,6 +46,10 @@ class DiaryCard extends StatelessWidget {
                     style: textTheme.labelSmall,
                   )
                 ],
+              ),
+              const Icon(
+                Icons.chevron_right,
+                color: Colors.black,
               ),
             ],
           ),

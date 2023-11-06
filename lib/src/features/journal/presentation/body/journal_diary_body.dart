@@ -5,6 +5,7 @@ import 'package:life_weather_mobile/src/core/utils/spacing/v_space.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
 import 'package:life_weather_mobile/src/features/journal/diary/presentation/bloc/bloc/diary_bloc.dart';
 import 'package:life_weather_mobile/src/features/journal/diary/presentation/screen/diary_add_screen.dart';
+import 'package:life_weather_mobile/src/features/journal/diary/presentation/screen/diary_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/presentation/widgets/journal_body_container.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/widgets/diary_card.dart';
 
@@ -20,7 +21,9 @@ class JournalDiaryBody extends StatelessWidget {
       builder: (context, state) {
         if (state.viewStatus == ViewStatus.successful) {
           return bodyContainer(
-            state.diaryResponseModel.diaries.isNotEmpty
+            isShowViewAll: state.diaryResponseModel.diaries.length > 3,
+            isEmpty: state.diaryResponseModel.diaries.isEmpty,
+            child: state.diaryResponseModel.diaries.isNotEmpty
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -58,17 +61,24 @@ class JournalDiaryBody extends StatelessWidget {
           );
         }
 
-        return bodyContainer(const Center(
+        return bodyContainer(
+            child: const Center(
           child: CircularProgressIndicator(),
         ));
       },
     );
   }
 
-  Widget bodyContainer(Widget child) {
+  Widget bodyContainer({
+    required Widget child,
+    bool isEmpty = true,
+    bool isShowViewAll = true,
+  }) {
     return JournalBodyContainer(
       backgroundColor: const Color(0xFFEBD9C4),
-      isEmpty: true,
+      isEmpty: isEmpty,
+      isShowViewAll: isShowViewAll,
+      routeName: DiaryScreen.routeName,
       headerTitle: 'Diaries',
       content: Flexible(
         child: Container(

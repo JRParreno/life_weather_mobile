@@ -12,6 +12,7 @@ PreferredSizeWidget buildAppBar({
   Color? backgroundColor,
   Widget? titleWidget,
   double elevation = 0,
+  bool isDarkMode = false,
 }) {
   return AppBar(
     toolbarHeight: kToolbarHeight,
@@ -23,10 +24,10 @@ PreferredSizeWidget buildAppBar({
     leading: !showBackBtn
         ? leading ??
             IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.chevron_left,
                 size: 40,
-                color: Colors.white,
+                color: !isDarkMode ? Colors.white : Colors.black,
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -37,7 +38,7 @@ PreferredSizeWidget buildAppBar({
         Text(
           title ?? AppConstant.appName,
           style: TextStyle(
-            color: Colors.white,
+            color: !isDarkMode ? Colors.black : Colors.white,
             fontSize: 16.sp,
             fontWeight: FontWeight.w700,
             letterSpacing: .3,

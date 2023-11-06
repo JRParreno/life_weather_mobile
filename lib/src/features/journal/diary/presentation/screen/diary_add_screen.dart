@@ -7,7 +7,6 @@ import 'package:life_weather_mobile/src/core/bloc/view_status.dart';
 import 'package:life_weather_mobile/src/core/utils/spacing/v_space.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
 import 'package:life_weather_mobile/src/features/journal/diary/presentation/bloc/bloc/diary_bloc.dart';
-import 'package:life_weather_mobile/src/features/journal/todo/presentation/bloc/bloc/todo_bloc.dart';
 
 class DiaryAddScreen extends StatefulWidget {
   const DiaryAddScreen({

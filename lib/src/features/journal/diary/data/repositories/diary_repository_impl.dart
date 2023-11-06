@@ -64,7 +64,7 @@ class DiaryRepositoryImpl extends DiaryRepository {
       return DiaryResponseModel(
         diaries: diaries,
         count: value.data['count'],
-        nextPage: value.data['next'],
+        nextPage: value.data['next'] != null ? page + 1 : null,
       );
     }).catchError((error) {
       throw error;

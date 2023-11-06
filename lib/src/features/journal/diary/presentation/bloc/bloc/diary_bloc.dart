@@ -13,6 +13,37 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
   DiaryBloc(this._diaryRepository) : super(DiaryState.empty()) {
     on<GetDiaryEvent>(_getDiaryEvent);
     on<AddDiaryEvent>(_addDiaryEvent);
+    on<PaginateDiaryEvent>(_paginateDiaryEvent);
+  }
+
+  Future<void> _paginateDiaryEvent(
+      PaginateDiaryEvent event, Emitter<DiaryState> emit) async {
+    final state = this.state;
+    final nextPage = state.diaryResponseModel.nextPage;
+
+    if (nextPage != null && state.viewStatus != ViewStatus.loading) {
+      emit(state.copyWith(viewStatus: ViewStatus.loading));
+
+      try {
+        final response = await _diaryRepository.diaryList(nextPage);
+
+        emit(
+          state.copyWith(
+            viewStatus: ViewStatus.successful,
+            diaryResponseModel: DiaryResponseModel(
+              count: response.count,
+              diaries: [
+                ...state.diaryResponseModel.diaries,
+                ...response.diaries
+              ],
+              nextPage: response.nextPage,
+            ),
+          ),
+        );
+      } catch (e) {
+        emit(state.copyWith(viewStatus: ViewStatus.failed));
+      }
+    }
   }
 
   Future<void> _addDiaryEvent(
@@ -48,7 +79,9 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
 
       emit(
         state.copyWith(
-            viewStatus: ViewStatus.successful, diaryResponseModel: response),
+          viewStatus: ViewStatus.successful,
+          diaryResponseModel: response,
+        ),
       );
     } catch (e) {
       emit(state.copyWith(viewStatus: ViewStatus.failed));

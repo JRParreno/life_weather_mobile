@@ -59,52 +59,57 @@ class CurrentWeatherV2 extends StatelessWidget {
             textColor: weatherConditionColor.textColor,
           ),
           Vspace.sm,
-          FittedBox(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                FittedBox(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText(
-                        text:
-                            '${toBeginningOfSentenceCase(weather.weatherDescription)}',
-                        style: textTheme.headlineSmall!.apply(
-                          color: weatherConditionColor.textColor,
+          SizedBox(
+            width: double.infinity,
+            child: FittedBox(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  FittedBox(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomText(
+                          text:
+                              '${toBeginningOfSentenceCase(weather.weatherDescription)}',
+                          style: textTheme.headlineSmall!.apply(
+                            color: weatherConditionColor.textColor,
+                          ),
+                          maxLines: 1,
                         ),
-                        maxLines: 1,
-                      ),
-                      Vspace.sm,
-                      WeatherTemperature(
-                        lowTemp:
-                            '${weather.tempMin?.celsius?.toInt().toString()}°',
-                        highTemp:
-                            '${weather.tempMax?.celsius?.toInt().toString()}°',
-                        textColor: weatherConditionColor.textColor,
-                      ),
-                    ],
+                        Vspace.sm,
+                        WeatherTemperature(
+                          lowTemp:
+                              '${weather.tempMin?.celsius?.toInt().toString()}°',
+                          highTemp:
+                              '${weather.tempMax?.celsius?.toInt().toString()}°',
+                          textColor: weatherConditionColor.textColor,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                FittedBox(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      WeatherOther(
-                        humidity: weather.humidity ?? 0,
-                        windSpeed: weather.windSpeed ?? 0,
-                        textColor: weatherConditionColor.textColor,
-                      ),
-                      Vspace.sm,
-                      WeatherLocation(
-                        areaName: weather.areaName ?? '',
-                        country: weather.country ?? '',
-                        textColor: weatherConditionColor.textColor,
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                  FittedBox(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        WeatherOther(
+                          humidity: weather.humidity ?? 0,
+                          windSpeed: weather.windSpeed ?? 0,
+                          textColor: weatherConditionColor.textColor,
+                        ),
+                        Vspace.sm,
+                        WeatherLocation(
+                          areaName: weather.areaName ?? '',
+                          country: weather.country ?? '',
+                          textColor: weatherConditionColor.textColor,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           )
         ],
