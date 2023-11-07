@@ -37,4 +37,13 @@ class Diary {
       lapses: listDiaryLapses.map((e) => DiaryLapse.fromMap(e)).toList(),
     );
   }
+
+  factory Diary.empty() {
+    return Diary(
+      pk: -1,
+      title: '',
+      dateCreated: '',
+      lapses: [],
+    );
+  }
 }

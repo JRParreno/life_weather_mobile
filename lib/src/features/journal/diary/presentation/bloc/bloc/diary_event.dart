@@ -19,3 +19,16 @@ class AddDiaryEvent extends DiaryEvent {
   @override
   List<Object?> get props => [title];
 }
+
+class AddDiaryLapseEvent extends DiaryEvent {
+  final String note;
+  final int pk;
+
+  const AddDiaryLapseEvent({
+    required this.pk,
+    required this.note,
+  });
+
+  @override
+  List<Object?> get props => [pk, note];
+}

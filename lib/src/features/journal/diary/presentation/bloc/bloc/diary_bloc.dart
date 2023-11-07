@@ -13,7 +13,38 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
   DiaryBloc(this._diaryRepository) : super(DiaryState.empty()) {
     on<GetDiaryEvent>(_getDiaryEvent);
     on<AddDiaryEvent>(_addDiaryEvent);
+    on<AddDiaryLapseEvent>(_addDiaryLapseEvent);
+
     on<PaginateDiaryEvent>(_paginateDiaryEvent);
+  }
+
+  Future<void> _addDiaryLapseEvent(
+      AddDiaryLapseEvent event, Emitter<DiaryState> emit) async {
+    try {
+      emit(state.copyWith(viewStatus: ViewStatus.loading));
+
+      final response = await _diaryRepository.addDiaryLapse(
+        diaryPk: event.pk,
+        note: event.note,
+      );
+
+      final diaries = state.diaryResponseModel.diaries;
+
+      diaries[diaries.indexWhere((element) => element.pk == event.pk)]
+          .lapses
+          .add(response);
+
+      emit(
+        state.copyWith(
+          viewStatus: ViewStatus.successful,
+          diaryResponseModel: state.diaryResponseModel.copyWith(
+            diaries: diaries,
+          ),
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(viewStatus: ViewStatus.failed));
+    }
   }
 
   Future<void> _paginateDiaryEvent(

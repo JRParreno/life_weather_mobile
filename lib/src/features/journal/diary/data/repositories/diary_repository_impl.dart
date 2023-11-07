@@ -32,9 +32,25 @@ class DiaryRepositoryImpl extends DiaryRepository {
 
   @override
   Future<DiaryLapse> addDiaryLapse(
-      {required int diaryPk, required String note}) {
-    // TODO: implement addDiaryLapse
-    throw UnimplementedError();
+      {required int diaryPk, required String note}) async {
+    const String url = '${AppConstant.apiUrl}/diary-lapse/create';
+
+    final data = {
+      "note": note,
+      "diary_pk": diaryPk,
+    };
+
+    return await ApiInterceptor.apiInstance()
+        .post(url, data: data)
+        .then((value) {
+      final response = value.data;
+
+      return DiaryLapse.fromMap(response);
+    }).catchError((error) {
+      throw error;
+    }).onError((error, stackTrace) {
+      throw error!;
+    });
   }
 
   @override

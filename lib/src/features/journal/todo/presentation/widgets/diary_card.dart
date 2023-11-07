@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:life_weather_mobile/src/core/utils/spacing/v_space.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
 import 'package:life_weather_mobile/src/features/journal/diary/data/models/diary.dart';
+import 'package:life_weather_mobile/src/features/journal/diary/presentation/screen/diary_detail_screen.dart';
 
 class DiaryCard extends StatelessWidget {
   const DiaryCard({
@@ -18,10 +19,10 @@ class DiaryCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        // handleOntap(
-        //   diary: diary,
-        //   context: context,
-        // );
+        handleOntap(
+          diary: diary,
+          context: context,
+        );
       },
       child: Card(
         child: Padding(
@@ -68,9 +69,9 @@ class DiaryCard extends StatelessWidget {
     required Diary diary,
     required BuildContext context,
   }) {
-    // Navigator.of(context).pushNamed(
-    //   TodoAddUpdateScreen.routeName,
-    //   arguments: TodoAddUpdateArgs(diary),
-    // );
+    Navigator.of(context).pushNamed(
+      DiaryDetailScreen.routeName,
+      arguments: DiaryDetailArgs(diary),
+    );
   }
 }

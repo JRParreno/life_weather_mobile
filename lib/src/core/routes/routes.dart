@@ -5,6 +5,8 @@ import 'package:life_weather_mobile/src/features/account/signup/presentation/scr
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_navigation.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/diary/presentation/screen/diary_add_screen.dart';
+import 'package:life_weather_mobile/src/features/journal/diary/presentation/screen/diary_detail_screen.dart';
+import 'package:life_weather_mobile/src/features/journal/diary/presentation/screen/diary_lapse_add_update_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/diary/presentation/screen/diary_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/presentation/journal_screen.dart';
 import 'package:life_weather_mobile/src/features/journal/todo/presentation/screens/todo_add_update_screen.dart';
@@ -49,6 +51,16 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
           return const DiaryAddScreen();
         case DiaryScreen.routeName:
           return const DiaryScreen();
+        case DiaryLapseAddUpdateScreen.routeName:
+          final args = settings.arguments! as DiaryLapseAddUpdateArgs;
+          return DiaryLapseAddUpdateScreen(
+            args: args,
+          );
+        case DiaryDetailScreen.routeName:
+          final args = settings.arguments! as DiaryDetailArgs;
+          return DiaryDetailScreen(
+            args: args,
+          );
       }
 
       return const Scaffold(
