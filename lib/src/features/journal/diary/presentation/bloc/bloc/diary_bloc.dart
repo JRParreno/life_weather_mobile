@@ -14,8 +14,17 @@ class DiaryBloc extends Bloc<DiaryEvent, DiaryState> {
     on<GetDiaryEvent>(_getDiaryEvent);
     on<AddDiaryEvent>(_addDiaryEvent);
     on<AddDiaryLapseEvent>(_addDiaryLapseEvent);
-
+    on<ResetDiaryEvent>(_resetDiaryEvent);
     on<PaginateDiaryEvent>(_paginateDiaryEvent);
+  }
+
+  Future<void> _resetDiaryEvent(
+      ResetDiaryEvent event, Emitter<DiaryState> emit) async {
+    try {
+      emit(DiaryState.empty());
+    } catch (e) {
+      emit(state.copyWith(viewStatus: ViewStatus.failed));
+    }
   }
 
   Future<void> _addDiaryLapseEvent(

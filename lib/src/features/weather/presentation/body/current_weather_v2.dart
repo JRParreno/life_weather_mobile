@@ -40,7 +40,7 @@ class CurrentWeatherV2 extends StatelessWidget {
         boxShadow: const [
           BoxShadow(
             color: Colors.grey,
-            blurRadius: 25,
+            blurRadius: 10,
           )
         ],
       ),

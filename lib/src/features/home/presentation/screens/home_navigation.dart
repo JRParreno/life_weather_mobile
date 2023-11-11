@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:life_weather_mobile/src/core/bloc/profile/profile_bloc.dart';
 import 'package:life_weather_mobile/src/core/utils/profile_utils.dart';
 import 'package:life_weather_mobile/src/features/account/profile/data/repositories/profile_repository_impl.dart';
+import 'package:life_weather_mobile/src/features/account/profile/presentation/screens/profile_screen.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/bloc/bloc/bottom_navigation_bloc.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/body/home_bottom_navbar.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_screen.dart';
@@ -29,7 +30,7 @@ class _HomeNavigationState extends State<HomeNavigation> {
     WeatherScreenV2(),
     JournalScreen(),
     NotificationSccreen(),
-    NotificationSccreen(),
+    ProfileScreen(),
   ];
 
   @override

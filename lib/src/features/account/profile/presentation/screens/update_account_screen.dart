@@ -2,6 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:life_weather_mobile/gen/colors.gen.dart';
+import 'package:life_weather_mobile/src/core/utils/spacing/v_space.dart';
+import 'package:life_weather_mobile/src/features/account/profile/presentation/screens/update_profile_picture_screen.dart';
 import 'package:ndialog/ndialog.dart';
 import 'package:life_weather_mobile/src/core/bloc/profile/profile_bloc.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
@@ -21,13 +24,12 @@ class UpdateAccountScreen extends StatefulWidget {
 
 class _UpdateAccountScreenState extends State<UpdateAccountScreen> {
   final TextEditingController emailCtrl = TextEditingController();
-  final TextEditingController mobileNoCtrl = TextEditingController();
-  final TextEditingController completeAddressCtrl = TextEditingController();
   final TextEditingController lastNameCtrl = TextEditingController();
   final TextEditingController firstNameCtrl = TextEditingController();
+  final TextEditingController genderCtrl = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
   String linkTitle = "You account is not verified yet. click here to verify.";
-  String gender = '';
 
   @override
   void initState() {
@@ -35,28 +37,88 @@ class _UpdateAccountScreenState extends State<UpdateAccountScreen> {
     super.initState();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: buildAppBar(
+        context: context,
+        title: "Account",
+        isDarkMode: true,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.chevron_left,
+            size: 40,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(10),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              UpdateAccountForm(
+                onSelectGender: (value) {
+                  genderCtrl.value = TextEditingController.fromValue(
+                          TextEditingValue(text: value))
+                      .value;
+                },
+                genderCtrl: genderCtrl,
+                emailCtrl: emailCtrl,
+                lastNameCtrl: lastNameCtrl,
+                firstNameCtrl: firstNameCtrl,
+                formKey: formKey,
+                onSubmit: handleSubmit,
+              ),
+              Vspace.md,
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed(UpdateProfilePcitureScreen.routeName);
+                      },
+                      child: const CustomTextLink(
+                        text: "Tap here to update profile picture",
+                        style: TextStyle(
+                          color: ColorName.primary,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   void setUpForm() {
     final profile = ProfileUtils.userProfile(context);
     if (profile != null) {
       emailCtrl.text = profile.email;
-      completeAddressCtrl.text = profile.address;
       lastNameCtrl.text = profile.lastName;
       firstNameCtrl.text = profile.firstName;
-      gender = profile.gender;
+      genderCtrl.text = profile.gender == "M" ? "MALE" : "FEMALE";
     }
   }
 
   void handleSubmit() {
-    if (formKey.currentState!.validate() && gender.isNotEmpty) {
+    if (formKey.currentState!.validate()) {
       EasyLoading.show();
       ProfileRepositoryImpl()
           .updateProfile(
-        address: completeAddressCtrl.text,
-        contactNumber: mobileNoCtrl.text,
         email: emailCtrl.text,
         firstName: firstNameCtrl.text,
         lastName: lastNameCtrl.text,
-        gender: gender,
+        gender: genderCtrl.text == "MALE" ? "M" : "F",
       )
           .then((value) {
         BlocProvider.of<ProfileBloc>(context)
@@ -90,38 +152,5 @@ class _UpdateAccountScreenState extends State<UpdateAccountScreen> {
         ],
       ).show(context);
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final profile = ProfileUtils.userProfile(context);
-
-    return Scaffold(
-      appBar: buildAppBar(context: context, title: "Account"),
-      body: Container(
-        padding: const EdgeInsets.all(10),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              UpdateAccountForm(
-                completeAddressCtrl: completeAddressCtrl,
-                emailCtrl: emailCtrl,
-                mobileNoCtrl: mobileNoCtrl,
-                lastNameCtrl: lastNameCtrl,
-                firstNameCtrl: firstNameCtrl,
-                formKey: formKey,
-                onSubmit: handleSubmit,
-                gender: gender.isNotEmpty ? gender : profile?.gender ?? '',
-                onSelect: (value) {
-                  setState(() {
-                    gender = value;
-                  });
-                },
-              )
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }

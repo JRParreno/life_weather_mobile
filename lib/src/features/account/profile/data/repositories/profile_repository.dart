@@ -6,8 +6,6 @@ abstract class ProfileRepository {
     required String firstName,
     required String lastName,
     required String email,
-    required String address,
-    required String contactNumber,
     required String gender,
   });
   Future<ProfileModel> updateMoodEmoji(String emoji);

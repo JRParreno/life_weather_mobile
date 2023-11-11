@@ -26,7 +26,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController emailSignupCtrl = TextEditingController();
   final TextEditingController passwordSignupCtrl = TextEditingController();
   final TextEditingController confirmPasswordCtrl = TextEditingController();
-  final TextEditingController completeAddressCtrl = TextEditingController();
   final TextEditingController firstNameCtrl = TextEditingController();
   final TextEditingController lastNameCtrl = TextEditingController();
   final TextEditingController genderCtrl = TextEditingController();
@@ -44,7 +43,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context: context, title: 'Signup'),
+      appBar: buildAppBar(
+        context: context,
+        title: 'Signup',
+        isDarkMode: true,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.chevron_left,
+            size: 40,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
       body: Container(
         padding: const EdgeInsets.all(10),
         child: SingleChildScrollView(
@@ -59,7 +72,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
             lastNameCtrl: lastNameCtrl,
             emailCtrl: emailSignupCtrl,
             passwordCtrl: passwordSignupCtrl,
-            completeAddressCtrl: completeAddressCtrl,
             confirmPasswordCtrl: confirmPasswordCtrl,
             formKey: signupFormKey,
             onSubmit: handleSignup,
@@ -86,7 +98,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     emailSignupCtrl.text = 'juandelacruz@gmail.com';
     passwordSignupCtrl.text = '2020Rtutest@';
     confirmPasswordCtrl.text = '2020Rtutest@';
-    completeAddressCtrl.text = '1977 FB HARRISON PASAY';
     firstNameCtrl.text = 'juan';
     lastNameCtrl.text = 'dela cruz';
     genderCtrl.text = 'male';
@@ -110,7 +121,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       final signup = SignupModel(
         email: emailSignupCtrl.text,
-        completeAddress: completeAddressCtrl.text,
         password: passwordSignupCtrl.text,
         confirmPassword: confirmPasswordCtrl.text,
         firstName: firstNameCtrl.text,

@@ -8,7 +8,6 @@ class SignupForm extends StatelessWidget {
     required this.emailCtrl,
     required this.passwordCtrl,
     required this.confirmPasswordCtrl,
-    required this.completeAddressCtrl,
     required this.firstNameCtrl,
     required this.lastNameCtrl,
     required this.formKey,
@@ -24,7 +23,6 @@ class SignupForm extends StatelessWidget {
   final TextEditingController emailCtrl;
   final TextEditingController passwordCtrl;
   final TextEditingController confirmPasswordCtrl;
-  final TextEditingController completeAddressCtrl;
   final TextEditingController lastNameCtrl;
   final TextEditingController firstNameCtrl;
   final TextEditingController genderCtrl;
@@ -123,17 +121,6 @@ class SignupForm extends StatelessWidget {
                   }
                   return 'Invalid email address';
                 },
-              ),
-              const Divider(
-                height: 10,
-                color: Colors.transparent,
-              ),
-              CustomTextField(
-                textController: completeAddressCtrl,
-                labelText: "Address",
-                keyboardType: TextInputType.emailAddress,
-                padding: EdgeInsets.zero,
-                parametersValidate: 'required',
               ),
               const Divider(
                 height: 10,

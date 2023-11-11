@@ -1,31 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:life_weather_mobile/src/core/widgets/common_widget.dart';
+import 'package:life_weather_mobile/src/features/account/signup/presentation/widgets/gender_select_widget.dart';
 
 class UpdateAccountForm extends StatelessWidget {
+  const UpdateAccountForm({
+    super.key,
+    required this.emailCtrl,
+    required this.firstNameCtrl,
+    required this.lastNameCtrl,
+    required this.genderCtrl,
+    required this.formKey,
+    required this.onSubmit,
+    required this.onSelectGender,
+  });
+
   final TextEditingController emailCtrl;
-  final TextEditingController mobileNoCtrl;
-  final TextEditingController completeAddressCtrl;
   final TextEditingController lastNameCtrl;
   final TextEditingController firstNameCtrl;
-  final String gender;
-  final Function(String value) onSelect;
+  final TextEditingController genderCtrl;
+  final Function(String value) onSelectGender;
 
   final GlobalKey<FormState> formKey;
 
   final VoidCallback onSubmit;
-
-  const UpdateAccountForm({
-    super.key,
-    required this.emailCtrl,
-    required this.mobileNoCtrl,
-    required this.completeAddressCtrl,
-    required this.firstNameCtrl,
-    required this.lastNameCtrl,
-    required this.formKey,
-    required this.onSubmit,
-    required this.gender,
-    required this.onSelect,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -84,73 +81,26 @@ class UpdateAccountForm extends StatelessWidget {
                 color: Colors.transparent,
               ),
               CustomTextField(
-                textController: mobileNoCtrl,
-                labelText: "Mobile number",
-                keyboardType: TextInputType.number,
-                padding: EdgeInsets.zero,
-                parametersValidate: 'required',
-                validators: (value) {
-                  if (value != null &&
-                      RegExp(r'^(09|\+639)\d{9}$').hasMatch(value)) {
-                    return null;
-                  }
-                  return 'Invalid mobile number';
-                },
-              ),
-              const Divider(
-                height: 10,
-                color: Colors.transparent,
-              ),
-              CustomTextField(
-                textController: completeAddressCtrl,
-                labelText: "Complete Address",
+                textController: genderCtrl,
+                labelText: "Gender",
                 keyboardType: TextInputType.emailAddress,
                 padding: EdgeInsets.zero,
                 parametersValidate: 'required',
+                readOnly: true,
+                onTap: () => commonBottomSheetDialog(
+                  context: context,
+                  title: "Select Gender",
+                  container: GenderSelectWidget(
+                    onSelectGender: onSelectGender,
+                    selectedGender:
+                        genderCtrl.text.isNotEmpty ? genderCtrl.text : null,
+                  ),
+                ),
               ),
               const Divider(
                 height: 10,
                 color: Colors.transparent,
               ),
-              SizedBox(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: CustomText(text: 'Gender'),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: RadioListTile(
-                            title: const Text("Male"),
-                            value: 'M',
-                            groupValue: gender,
-                            onChanged: (value) {
-                              onSelect('M');
-                            },
-                            selected: gender == 'M',
-                            contentPadding: EdgeInsets.zero,
-                          ),
-                        ),
-                        Expanded(
-                          child: RadioListTile(
-                            title: const Text("Female"),
-                            value: 'F',
-                            groupValue: gender,
-                            onChanged: (value) {
-                              onSelect('F');
-                            },
-                            selected: gender == 'F',
-                            contentPadding: EdgeInsets.zero,
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              )
             ],
           ),
           const Divider(

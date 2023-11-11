@@ -29,6 +29,7 @@ class TodoCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(bottom: isList ? 10 : 0),
         child: Card(
+          elevation: 5,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(

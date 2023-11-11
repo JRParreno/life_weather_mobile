@@ -28,8 +28,12 @@ class _JournalScreenState extends State<JournalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          buildAppBar(context: context, showBackBtn: true, title: "Journal"),
+      appBar: buildAppBar(
+        context: context,
+        showBackBtn: true,
+        title: 'Journal',
+        isDarkMode: true,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(10),

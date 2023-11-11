@@ -32,3 +32,5 @@ class AddDiaryLapseEvent extends DiaryEvent {
   @override
   List<Object?> get props => [pk, note];
 }
+
+class ResetDiaryEvent extends DiaryEvent {}

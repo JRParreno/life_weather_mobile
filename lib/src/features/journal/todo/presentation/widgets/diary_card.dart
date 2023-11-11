@@ -25,6 +25,7 @@ class DiaryCard extends StatelessWidget {
         );
       },
       child: Card(
+        elevation: 5,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(

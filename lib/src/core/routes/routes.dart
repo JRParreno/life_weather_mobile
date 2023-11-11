@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:life_weather_mobile/src/features/account/forgot_password/presentation/screen/forgot_password_screen.dart';
 import 'package:life_weather_mobile/src/features/account/login/presentation/screen/login_screen.dart';
+import 'package:life_weather_mobile/src/features/account/profile/presentation/screens/change_password_screen.dart';
+import 'package:life_weather_mobile/src/features/account/profile/presentation/screens/update_account_screen.dart';
+import 'package:life_weather_mobile/src/features/account/profile/presentation/screens/update_profile_picture_screen.dart';
 import 'package:life_weather_mobile/src/features/account/signup/presentation/screens/sign_up_screen.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_navigation.dart';
 import 'package:life_weather_mobile/src/features/home/presentation/screens/home_screen.dart';
@@ -61,6 +64,12 @@ Route<dynamic>? generateRoute(RouteSettings settings) {
           return DiaryDetailScreen(
             args: args,
           );
+        case UpdateAccountScreen.routeName:
+          return const UpdateAccountScreen();
+        case ChangePasswordScreen.routeName:
+          return const ChangePasswordScreen();
+        case UpdateProfilePcitureScreen.routeName:
+          return const UpdateProfilePcitureScreen();
       }
 
       return const Scaffold(

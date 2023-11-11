@@ -6,7 +6,6 @@ class Profile {
     required this.firstName,
     required this.lastName,
     required this.email,
-    required this.address,
     required this.gender,
     this.profilePhoto,
     this.moodEmoji,
@@ -18,7 +17,6 @@ class Profile {
   final String firstName;
   final String lastName;
   final String email;
-  final String address;
   final String gender;
   final String? profilePhoto;
   final String? moodEmoji;

@@ -27,8 +27,6 @@ class ProfileRepositoryImpl extends ProfileRepository {
     required String firstName,
     required String lastName,
     required String email,
-    required String address,
-    required String contactNumber,
     required String gender,
   }) async {
     const String url = '${AppConstant.apiUrl}/profile';
@@ -39,8 +37,6 @@ class ProfileRepositoryImpl extends ProfileRepository {
         "first_name": firstName,
         "last_name": lastName,
       },
-      "address": address,
-      "contact_number": contactNumber,
       "gender": gender,
     };
 

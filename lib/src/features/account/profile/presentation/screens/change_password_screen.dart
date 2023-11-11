@@ -23,6 +23,55 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   bool _passwordVisible = true;
   bool _passwordConfirmVisible = true;
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: buildAppBar(
+        context: context,
+        title: "Change Password",
+        isDarkMode: true,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.chevron_left,
+            size: 40,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            PasswordForm(
+              formKey: formKey,
+              oldPasswordCtrl: oldPasswordCtrl,
+              passwordConfirmCtrl: passwordConfirmCtrl,
+              passwordCtrl: passwordCtrl,
+              onSubmit: handleSubmit,
+              confirmPasswordVisible: _passwordConfirmVisible,
+              confirmSuffixIcon: GestureDetector(
+                onTap: handleOnConfirmChangePassVisible,
+                child: Icon(!_passwordConfirmVisible
+                    ? Icons.visibility
+                    : Icons.visibility_off),
+              ),
+              passwordVisible: _passwordVisible,
+              suffixIcon: GestureDetector(
+                onTap: handleOnChangePassVisible,
+                child: Icon(!_passwordVisible
+                    ? Icons.visibility
+                    : Icons.visibility_off),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
   void handleSubmit() {
     if (formKey.currentState!.validate()) {
       EasyLoading.show();
@@ -81,40 +130,5 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     setState(() {
       _passwordVisible = !_passwordVisible;
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: buildAppBar(context: context, title: "Change Password"),
-      body: Container(
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          children: [
-            PasswordForm(
-              formKey: formKey,
-              oldPasswordCtrl: oldPasswordCtrl,
-              passwordConfirmCtrl: passwordConfirmCtrl,
-              passwordCtrl: passwordCtrl,
-              onSubmit: handleSubmit,
-              confirmPasswordVisible: _passwordConfirmVisible,
-              confirmSuffixIcon: GestureDetector(
-                onTap: handleOnConfirmChangePassVisible,
-                child: Icon(!_passwordConfirmVisible
-                    ? Icons.visibility
-                    : Icons.visibility_off),
-              ),
-              passwordVisible: _passwordVisible,
-              suffixIcon: GestureDetector(
-                onTap: handleOnChangePassVisible,
-                child: Icon(!_passwordVisible
-                    ? Icons.visibility
-                    : Icons.visibility_off),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
   }
 }
