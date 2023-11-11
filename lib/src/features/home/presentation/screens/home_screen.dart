@@ -104,12 +104,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       Vspace.md,
                       JournalTodoBody(bloc: todoBloc),
                       Vspace.md,
-                      CustomBtn(
-                        label: 'Logout',
-                        onTap: () {
-                          handleLogout(context);
-                        },
-                      )
                     ],
                   ),
                 ),
